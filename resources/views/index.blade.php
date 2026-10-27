@@ -23,12 +23,12 @@
             <div id="carouselExampleIndicators" class="carousel slide {{ $carousel_fade }} position-relative" data-bs-ride="carousel" data-bs-pause="false" role="region" aria-label="焦點新聞輪播圖">
                 
                 <div id="carouselAnnouncer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
-
-                <div class="carousel-accessibility-control" style="position: absolute; top: 15px; right: 15px; z-index: 1050;">
+                
+                <div class="carousel-accessibility-control" style="position: absolute; top: 15px; right: 15px; z-index: 20;">
                     <button type="button" id="carouselToggleBtn" class="btn btn-pause" aria-label="暫停輪播圖片" aria-pressed="false">
                         <i class="fas fa-pause me-1" aria-hidden="true"></i> <span>暫停輪播</span>
                     </button>
-                </div>                
+                </div>                             
 
                 <div class="carousel-indicators" role="tablist" aria-label="投影片分頁控制">
                     <?php $n=0; ?>

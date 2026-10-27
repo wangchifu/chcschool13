@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Setup;
-use App\Task;
-use App\User;
-use App\UserTask;
+use App\Models\Setup;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\UserTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;

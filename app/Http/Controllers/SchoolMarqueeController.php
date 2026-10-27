@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Setup;
-use App\SchoolMarquee;
+use App\Models\Setup;
+use App\Models\SchoolMarquee;
 
 class SchoolMarqueeController extends Controller
 {

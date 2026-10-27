@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\PhotoLink;
-use App\PhotoType;
+use App\Models\PhotoLink;
+use App\Models\PhotoType;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 

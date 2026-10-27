@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Fix;
-use App\FixClass;
-use App\Fun;
+use App\Models\Fix;
+use App\Models\FixClass;
+use App\Models\Fun;
 use App\Http\Requests\FixRequest;
-use App\Setup;
-use App\User;
-use App\UserPower;
-use App\ClubStudent;
-use App\StudentClass;
+use App\Models\Setup;
+use App\Models\User;
+use App\Models\UserPower;
+use App\Models\ClubStudent;
+use App\Models\StudentClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\MonthlyCalendar;
-use App\Setup;
+use App\Models\MonthlyCalendar;
+use App\Models\Setup;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;

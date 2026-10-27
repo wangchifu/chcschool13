@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Setup;
-use App\TeacherAbsent;
-use App\TeacherAbsentOutlay;
-use App\User;
-use App\UserPower;
+use App\Models\Setup;
+use App\Models\TeacherAbsent;
+use App\Models\TeacherAbsentOutlay;
+use App\Models\User;
+use App\Models\UserPower;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;

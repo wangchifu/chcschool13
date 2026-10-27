@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Classroom;
-use App\ClassroomOrder;
+use App\Models\Classroom;
+use App\Models\ClassroomOrder;
 use App\Http\Requests\BlogRequest;
-use App\Blog;
-use App\Setup;
+use App\Models\Blog;
+use App\Models\Setup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;

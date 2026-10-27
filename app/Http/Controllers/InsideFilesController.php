@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InsideFileRequest;
-use App\InsideFile;
-use App\Setup;
+use App\Models\InsideFile;
+use App\Models\Setup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 

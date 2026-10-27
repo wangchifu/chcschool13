@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\ClubStudent;
-use App\LunchFactory;
-use App\LunchOrder;
-use App\LunchOrderDate;
-use App\LunchClassDate;
-use App\LunchSetup;
-use App\LunchStuDate;
-use App\StudentClass;
+use App\Models\ClubStudent;
+use App\Models\LunchFactory;
+use App\Models\LunchOrder;
+use App\Models\LunchOrderDate;
+use App\Models\LunchClassDate;
+use App\Models\LunchSetup;
+use App\Models\LunchStuDate;
+use App\Models\StudentClass;
 use Illuminate\Http\Request;
 
 class LunchStuController extends Controller

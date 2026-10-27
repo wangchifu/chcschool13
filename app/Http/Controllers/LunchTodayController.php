@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\LunchToday;
+use App\Models\LunchToday;
 use Illuminate\Http\Request;
 
 class LunchTodayController extends Controller

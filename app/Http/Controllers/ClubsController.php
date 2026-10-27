@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Club;
-use App\ClubBlack;
-use App\ClubRegister;
-use App\ClubNotRegister;
-use App\ClubSemester;
-use App\ClubStudent;
-use App\LunchSetup;
-use App\Setup;
-use App\StudentClass;
+use App\Models\Club;
+use App\Models\ClubBlack;
+use App\Models\ClubRegister;
+use App\Models\ClubNotRegister;
+use App\Models\ClubSemester;
+use App\Models\ClubStudent;
+use App\Models\LunchSetup;
+use App\Models\Setup;
+use App\Models\StudentClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;

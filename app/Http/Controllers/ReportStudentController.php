@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Setup;
-use App\StudentClass;
-use App\ClubStudent;
-use App\ReportStudent;
-use App\ReportStudentItem;
-use App\ReportStudentAnswer;
+use App\Models\Setup;
+use App\Models\StudentClass;
+use App\Models\ClubStudent;
+use App\Models\ReportStudent;
+use App\Models\ReportStudentItem;
+use App\Models\ReportStudentAnswer;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class ReportStudentController extends Controller

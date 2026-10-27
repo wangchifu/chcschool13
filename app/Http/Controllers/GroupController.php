@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
-use App\User;
-use App\UserGroup;
+use App\Models\Group;
+use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Link;
-use App\Type;
+use App\Models\Link;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class LinksController extends Controller

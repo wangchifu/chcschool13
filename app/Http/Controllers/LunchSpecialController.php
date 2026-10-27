@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\LunchFactory;
-use App\LunchOrder;
-use App\LunchOrderDate;
-use App\LunchPlace;
-use App\LunchSetup;
-use App\LunchTeaDate;
-use App\LunchClassDate;
-use App\User;
+use App\Models\LunchFactory;
+use App\Models\LunchOrder;
+use App\Models\LunchOrderDate;
+use App\Models\LunchPlace;
+use App\Models\LunchSetup;
+use App\Models\LunchTeaDate;
+use App\Models\LunchClassDate;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LunchSpecialController extends Controller

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Setup;
-use App\StudentClass;
-use App\ClubStudent;
-use App\Action;
-use App\Item;
-use App\StudentSign;
+use App\Models\User;
+use App\Models\Setup;
+use App\Models\StudentClass;
+use App\Models\ClubStudent;
+use App\Models\Action;
+use App\Models\Item;
+use App\Models\StudentSign;
 use Rap2hpoutre\FastExcel\FastExcel;
 use PHPExcel_IOFactory;
 use PHPExcel;

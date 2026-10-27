@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MeetingRequest;
-use App\Meeting;
-use App\Report;
-use App\Setup;
+use App\Models\Meeting;
+use App\Models\Report;
+use App\Models\Setup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 

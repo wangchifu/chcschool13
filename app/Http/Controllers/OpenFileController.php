@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OpenFileRequest;
-use App\Setup;
-use App\Upload;
+use App\Models\Setup;
+use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\LunchFactory;
-use App\LunchOrder;
-use App\LunchPlace;
-use App\LunchSetup;
-use App\LunchTeaDate;
-use App\Setup;
+use App\Models\LunchFactory;
+use App\Models\LunchOrder;
+use App\Models\LunchPlace;
+use App\Models\LunchSetup;
+use App\Models\LunchTeaDate;
+use App\Models\Setup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;

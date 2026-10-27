@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\UserPower;
+use App\Models\User;
+use App\Models\UserPower;
 use Illuminate\Http\Request;
 
 class UserPowerController extends Controller

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\LunchClassDate;
-use App\LunchFactory;
-use App\LunchOrder;
-use App\LunchOrderDate;
-use App\LunchSetup;
-use App\LunchTeaDate;
-use App\StudentClass;
+use App\Models\LunchClassDate;
+use App\Models\LunchFactory;
+use App\Models\LunchOrder;
+use App\Models\LunchOrderDate;
+use App\Models\LunchSetup;
+use App\Models\LunchTeaDate;
+use App\Models\StudentClass;
 use Illuminate\Http\Request;
 use PHPExcel_IOFactory;
 use PHPExcel;

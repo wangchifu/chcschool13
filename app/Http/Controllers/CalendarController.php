@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Calendar;
-use App\CalendarWeek;
-use App\MonthlyCalendar;
-use App\Setup;
+use App\Models\Calendar;
+use App\Models\CalendarWeek;
+use App\Models\MonthlyCalendar;
+use App\Models\Setup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

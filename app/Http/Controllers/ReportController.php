@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ReportRequest;
-use App\Meeting;
-use App\Report;
+use App\Models\Meeting;
+use App\Models\Report;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller

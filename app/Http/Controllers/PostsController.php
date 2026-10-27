@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
-use App\Post;
-use App\PostType;
-use App\Setup;
+use App\Models\Post;
+use App\Models\PostType;
+use App\Models\Setup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;

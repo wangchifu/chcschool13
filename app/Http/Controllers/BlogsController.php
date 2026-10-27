@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BlogRequest;
-use App\Blog;
-use App\Setup;
+use App\Models\Blog;
+use App\Models\Setup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;

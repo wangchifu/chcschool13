@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Setup;
-use App\LendClass;
-use App\LendItem;
-use App\LendOrder;
+use App\Models\User;
+use App\Models\Setup;
+use App\Models\LendClass;
+use App\Models\LendItem;
+use App\Models\LendOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;

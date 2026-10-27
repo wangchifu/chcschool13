@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Wrench;
+use App\Models\User;
+use App\Models\Wrench;
 use Illuminate\Http\Request;
 Use SQLite3;
 use Illuminate\Support\Facades\Mail;

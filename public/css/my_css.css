@@ -181,7 +181,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .list-group-item:focus-visible, 
 .card-body a:focus-visible { z-index: 10; }
 
-/* 2. 深色背景區塊（Nav bar 全體選單、漢堡按鈕、跑馬燈、輪播圖按鈕）專用黃色焦點 */
+/* 2. 深色背景區塊專用黃色焦點 */
 .navbar a:focus, .navbar a:focus-visible,
 .navbar button:focus, .navbar button:focus-visible,
 .navbar .nav-link:focus, .navbar .nav-link:focus-visible,
@@ -193,18 +193,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .carousel-accessibility-control .btn-pause:focus,
 .carousel-accessibility-control .btn-pause:focus-visible {
     outline: 3px solid var(--focus-yellow) !important;
-    outline-offset: -2px !important; /* 內縮 2px 避免被 Navbar 上下邊界裁切 */
-    box-shadow: none !important; /* 清除 Bootstrap 預設的光暈 */
+    outline-offset: -2px !important;
+    box-shadow: none !important;
 }
 
-/* 3. 按鈕與特殊元件焦點 (加入 .btn 內縮 -2px，徹底解決「查看更多公告」等按鈕框被切掉的問題) */
+/* 3. 按鈕與特殊元件焦點 */
 .btn:focus,
 .btn:focus-visible,
 .table a:focus-visible,
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:focus-visible {
     outline: 3px solid var(--focus-blue) !important;
-    outline-offset: -2px !important; /* 內縮 2px 確保外框完整收納在按鈕內部 */
+    outline-offset: -2px !important;
     box-shadow: none !important;
 }
 
@@ -222,7 +222,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ==========================================================================
    3. 通用元件與按鈕 (Components & Buttons)
    ========================================================================== */
-/* 1. 修正全站主要超連結：加上 :not(.btn) 排除按鈕，避免藍色蓋掉按鈕文字 */
 .text-primary,
 a.text-primary,
 .tab-content a:not(.btn),
@@ -247,13 +246,12 @@ a.text-primary:hover, a.text-primary:focus,
     color: var(--danger-hover) !important;
 }
 
-/* 2. 提高綠色按鈕選擇器權重：明確指定 a.btn-success，確保文字一律為白色 */
 a.btn-success,
 button.btn-success,
 .btn-success {
     background-color: var(--success-bg) !important;
     border-color: var(--success-border) !important;
-    color: #ffffff !important; /* 強制白色文字 */
+    color: #ffffff !important;
     text-decoration: none !important;
 }
 
@@ -268,12 +266,12 @@ button.btn-success:hover, button.btn-success:focus,
 /* ==========================================================================
    4. 特定功能區塊 (Feature Modules)
    ========================================================================== */
-/* 輪播圖 (Carousel) */
+/* 輪播圖控制 (Carousel) */
 .carousel-accessibility-control {
     position: absolute;
     top: 12px;
     right: 12px;
-    z-index: 30;
+    z-index: 20 !important; /* 降低階層，確保下方不會擋住導覽列與選單 */
 }
 
 .carousel-accessibility-control .btn-pause {
@@ -627,40 +625,33 @@ button.btn-success:hover, button.btn-success:focus,
     line-height: 1.4;
 }
 
-/* ==========================================================================
-   圖片連結區塊：修復文字遮擋與強制 16:9 圖片比例
-   ========================================================================== */
-
-/* 1. 圖片外層連結容器：強制 16:9 比例與防止內容溢出 */
+/* 圖片連結區塊 */
 .photo-link-item a {
     display: block !important;
     width: 100% !important;
-    aspect-ratio: 16 / 9 !important;     /* 強制所有圖片框為 16:9 比例 */
-    overflow: hidden !important;          /* 裁切超出範圍的圖片內容 */
-    border-radius: var(--radius-md, 8px);/* 圓角邊框 */
-    background-color: #f1f5f9;            /* 圖片載入前的底色 */
-    margin-left: 0 !important;            /* 清除全站 a 標籤預設左邊距 */
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    border-radius: var(--radius-md, 8px);
+    background-color: #f1f5f9;
+    margin-left: 0 !important;
     margin-bottom: 6px !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* 2. 圖片本體：滿版自動對齊與裁切 */
 .photo-link-item .photo-link-img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;        /* 自動填滿 16:9 容器並保持比例裁切 */
-    object-position: center !important;   /* 圖片重點置中 */
+    object-fit: cover !important;
+    object-position: center !important;
     transition: transform 0.3s ease, opacity 0.2s ease;
 }
 
-/* Hover 時微放大效果 */
 .photo-link-item a:hover .photo-link-img,
 .photo-link-item a:focus .photo-link-img {
     transform: scale(1.06);
     opacity: 0.9;
 }
 
-/* 3. 圖文卡片與下方文字排版：確保文字空間充足不重疊 */
 .photo-link-item figure {
     display: flex;
     flex-direction: column;
@@ -789,10 +780,10 @@ button.btn-success:hover, button.btn-success:focus,
 }
 
 /* ==========================================================================
-   現代感 Navbar：支援 $navbar_custom 動態色系 + 水凝毛玻璃層次
+   6. 現代感 Navbar：支援 $navbar_custom 動態色系 + 水凝毛玻璃層次
    ========================================================================== */
 
-/* 1. 主導覽列：疊加半透明光影漸層 */
+/* 主導覽列：提高 z-index 至 1080 確保浮於頁面所有內容之上 */
 #mainNav {
     background-image: linear-gradient(
         135deg, 
@@ -805,12 +796,11 @@ button.btn-success:hover, button.btn-success:focus,
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    z-index: 1030 !important;
+    z-index: 1080 !important;
     overflow: visible !important;
     transition: all 0.3s ease;
 }
 
-/* 2. 品牌名稱 (Logo / 標題) 與一般文字 */
 #mainNav .navbar-brand,
 #mainNav .navbar-text {
     color: var(--nav-brand-color, #ffffff) !important;
@@ -823,7 +813,6 @@ button.btn-success:hover, button.btn-success:focus,
     transform: translateY(-1px);
 }
 
-/* 3. 未 Hover 的導覽列連結 */
 #mainNav .nav-link {
     color: var(--nav-link-color, rgba(255, 255, 255, 0.95)) !important;
     font-weight: 500;
@@ -835,11 +824,10 @@ button.btn-success:hover, button.btn-success:focus,
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* 4. 滑鼠移上去 (Hover) / 選單開啟時：微光玻璃感 (Glassmorphism + 多重立體邊緣) */
 #mainNav .nav-link:hover,
 #mainNav .nav-item:hover > .nav-link,
 #mainNav .nav-item.show > .nav-link {
-    color: #0f172a !important; /* 深灰色字體，與白玻璃對比度達 12:1 */
+    color: #0f172a !important;
     background: linear-gradient(
         180deg, 
         rgba(255, 255, 255, 0.85) 0%, 
@@ -848,7 +836,6 @@ button.btn-success:hover, button.btn-success:focus,
     backdrop-filter: blur(10px) saturate(180%);
     -webkit-backdrop-filter: blur(10px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.7) !important;
-    /* 頂部白色高光內陰影 + 底部懸浮氣墊軟影 */
     box-shadow: 
         inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
         0 4px 14px -2px rgba(0, 0, 0, 0.15),
@@ -857,7 +844,6 @@ button.btn-success:hover, button.btn-success:focus,
     text-shadow: none;
 }
 
-/* 當前頁面 (Active) 高亮：晶透凝膠玻璃感 */
 #mainNav .nav-item.active > .nav-link,
 #mainNav .nav-link[aria-current="page"] {
     color: #0f172a !important;
@@ -873,10 +859,9 @@ button.btn-success:hover, button.btn-success:focus,
     box-shadow: 
         inset 0 1px 1px 0 rgba(255, 255, 255, 1),
         0 6px 16px -2px rgba(0, 0, 0, 0.18) !important;
-        text-shadow: none;
+    text-shadow: none;
 }
 
-/* 5. 手機版漢堡選單按鈕 (.custom-toggler)：精緻玻璃按鈕 */
 #mainNav .custom-toggler.navbar-toggler {
     background: linear-gradient(
         180deg, 
@@ -911,27 +896,91 @@ button.btn-success:hover, button.btn-success:focus,
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* 替換漢堡圖示為深色（確保對比度） */
 #mainNav .custom-toggler .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2815, 23, 42, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
-/* 6. 下拉選單 (Dropdown Menu) */
+/* ==========================================================================
+   7. 下拉選單 (Dropdown Menu) - 桌面版 Hover 展開、美化與多層級定位修正
+   ========================================================================== */
+
+/* 下拉選單外觀美化 (高對比外框、柔和深層陰影、極致層級 z-index: 1090) */
 #mainNav .dropdown-menu {
-    z-index: 1
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.18), 
+                0 4px 12px -2px rgba(0, 0, 0, 0.08) !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    z-index: 1090 !important;
+    margin-top: 0.25rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 桌面版 (>= 992px) 滑鼠移上去 (Hover) 自動滑出顯示 */
+@media (min-width: 992px) {
+    #mainNav .nav-item.dropdown:hover > .dropdown-menu {
+        display: block !important;
+        animation: navDropdownFadeIn 0.2s ease-in-out forwards;
+    }
+
+    /* 多層級（第二層）選單相對定位與側邊展開 */
+    #mainNav .dropdown-menu li {
+        position: relative;
+    }
+
+    #mainNav .dropdown-menu li:hover > .dropdown-menu {
+        display: block !important;
+        top: 0;
+        left: 100%;
+        margin-left: 0.2rem;
+        animation: navDropdownFadeIn 0.2s ease-in-out forwards;
+    }
+
+    /* 靠右對齊時，第二層向左展開 */
+    #mainNav .dropdown-menu-end li:hover > .dropdown-menu {
+        left: auto;
+        right: 100%;
+        margin-right: 0.2rem;
+    }
+}
+
+/* 選單展開微浮現動畫 */
+@keyframes navDropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 選單項目 Hover 高亮質感 */
+#mainNav .dropdown-item {
+    color: #1e293b !important;
+    font-weight: 500;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 8px !important;
+    transition: all 0.15s ease-in-out;
+}
+
+#mainNav .dropdown-item:hover,
+#mainNav .dropdown-item:focus {
+    color: #003d82 !important;
+    background-color: #f1f5f9 !important;
+    transform: translateX(4px);
 }
 
 /* ===================================================
-   全站 nav-tabs 頁籤無障礙對比度修正 (符合 WCAG AA >= 4.5:1)
+   全站 nav-tabs 頁籤無障礙對比度修正
    =================================================== */
-
-/* 1. 未選中的頁籤：改為較深且清晰的藍色 (#0056b3，對比度 7.04:1) */
 .nav-tabs .nav-link {
     color: #0056b3;
     background-color: transparent;
 }
 
-/* 2. 滑鼠懸停與鍵盤 Focus 狀態：加深藍色 (#003d80，對比度 10.61:1) */
 .nav-tabs .nav-link:hover,
 .nav-tabs .nav-link:focus {
     color: #003d80;
@@ -939,34 +988,29 @@ button.btn-success:hover, button.btn-success:focus,
     border-color: #e9ecef #e9ecef #dee2e6;
 }
 
-/* 3. 當前選中的頁籤 (active)：採用深黑灰色 (#212529，對比度 15.43:1) */
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
     color: #212529;
     background-color: #ffffff;
     border-color: #dee2e6 #dee2e6 #ffffff;
-    font-weight: 600; /* 增加字重，提升視覺辨識度 */
+    font-weight: 600;
 }
 
 /* ===================================================
-   .btn-outline-primary 無障礙對比度修正 (符合 WCAG AA >= 4.5:1)
+   .btn-outline-primary 無障礙對比度修正
    =================================================== */
-
-/* 1. 預設狀態：文字與邊框改為深藍色 (#0056b3，對比度 7.04:1) */
 .btn-outline-primary {
     color: #0056b3;
     border-color: #0056b3;
     background-color: transparent;
 }
 
-/* 2. 滑鼠懸停 (Hover) 狀態：深藍底白字 (#0056b3 底 + 白字，對比度 7.04:1) */
 .btn-outline-primary:hover {
     color: #ffffff;
     background-color: #0056b3;
     border-color: #0056b3;
 }
 
-/* 3. 鍵盤聚焦 (Focus) 狀態 */
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
     color: #ffffff;
@@ -975,7 +1019,6 @@ button.btn-success:hover, button.btn-success:focus,
     box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.5);
 }
 
-/* 4. 點擊/按下 (Active) 狀態：更深的藍底 (#004085，對比度 10.13:1) */
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-primary.dropdown-toggle {
@@ -985,9 +1028,8 @@ button.btn-success:hover, button.btn-success:focus,
 }
 
 /* ===================================================
-   .text-danger 高對比修正 (達到 WCAG AAA 最高標準 >= 7:1)
+   .text-danger 高對比修正
    =================================================== */
-
 .text-danger {
     color: #990000 !important;
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Content;
-use App\Setup;
-use App\Log;
-use App\Group;
-use App\UserGroup;
+use App\Models\Content;
+use App\Models\Setup;
+use App\Models\Log;
+use App\Models\Group;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
