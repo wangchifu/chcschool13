@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap');
+/* =========================================================
+   1. 全域標題字型與大小統一 (強制 1.6rem + 標楷體 + 粗體)
+   ========================================================= */
+.original-title, .title1, .title2, .title3, .title4,
+.soft-title1, .soft-title2, .soft-title3, .soft-title4, .soft-title5, .soft-title6, .soft-title7, .soft-title8,
+.gradient-title1, .gradient-title2, .gradient-title3, .gradient-title4,
+.sp-title1, .sp-title2, .sp-title3, .sp-title4, .sp-title5, .sp-title6, .sp-title7, .sp-title8,
+.default-title1, .default-title2 {
+    font-family: "LXGW WenKai TC", "DFKai-SB", "BiauKai", "Songti TC", serif !important;    
+    font-size: 1.4rem !important;
+    font-weight: bold !important;
+}
+
+/* 確保容器內部不論是 div, span, h1~h6, p 都能繼承字型大小與顏色，並消除預設邊距 */
+.original-title *, .title1 *, .title2 *, .title3 *, .title4 *,
+.soft-title1 *, .soft-title2 *, .soft-title3 *, .soft-title4 *, .soft-title5 *, .soft-title6 *, .soft-title7 *, .soft-title8 *,
+.gradient-title1 *, .gradient-title2 *, .gradient-title3 *, .gradient-title4 *,
+.sp-title1 *, .sp-title2 *, .sp-title3 *, .sp-title4 *, .sp-title5 *, .sp-title6 *, .sp-title7 *, .sp-title8 *,
+.default-title1 *, .default-title2 * {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    color: inherit !important;
+    margin: 0 !important;
+}
+
+/* =========================================================
+   2. 各區塊原有樣式 (100% 保留顏色、背景與對比度)
+   ========================================================= */
+
+/* 單色綠 */
+.original-block {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.original-title {
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #fff;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #1a1a1a; /* 17.4:1 */
+}
+
+.block1 {
+    border: 2px solid #35ae55;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.title1 {
+    background-color: #35ae55;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #082b12; /* 深墨綠，對比度 5.38:1 */
+}
+
+/* 單色黃 */
+.block2 {
+    border: 2px solid #f1c500;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.title2 {
+    background-color: #f1c500;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #3d2f00; /* 深黃棕，對比度 7.93:1 */
+}
+
+/* 單色藍 */
+.block3 {
+    border: 2px solid #3696e0;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.title3 {
+    background-color: #3696e0;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #03213d; /* 深藏青，對比度 5.12:1 */
+}
+
+/* 單色紅 */
+.block4 {
+    border: 2px solid #e55137;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.title4 {
+    background-color: #e55137;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #300500; /* 深酒紅，對比度 4.85:1 */
+}
+
+/* 單色淺綠 */
+.soft-block1 {
+    border: 2px solid #aed581;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title1 {
+    background-color: #aed581;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #203b01; /* 橄欖黑綠，對比度 7.49:1 */
+}
+
+/* 單色淺黃 */
+.soft-block2 {
+    border: 2px solid #ffd54f;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title2 {
+    background-color: #ffd54f;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #3d2700; /* 濃咖啡棕，對比度 10.0:1 */
+}
+
+/* 單色淺藍 */
+.soft-block3 {
+    border: 2px solid #4fc3f7;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title3 {
+    background-color: #4fc3f7;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #002f47; /* 深深海藍，對比度 7.00:1 */
+}
+
+/* 單色淺紅 */
+.soft-block4 {
+    border: 2px solid #ef9a9a;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title4 {
+    background-color: #ef9a9a;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #420a0a; /* 濃深紫紅，對比度 7.63:1 */
+}
+
+/* 單色淺藍 */
+.soft-block5 {
+    border: 2px solid #d3f6f3;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title5 {
+    background-color: #d3f6f3;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #014d87; /* 深湛藍，對比度 7.56:1 */
+}
+
+/* 單色淺膚色 */
+.soft-block6 {
+    border: 2px solid #f9fce1;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title6 {
+    background-color: #f9fce1;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #6b3d00; /* 古銅暗棕，對比度 8.74:1 */
+}
+
+/* 單色淺黃 */
+.soft-block7 {
+    border: 2px solid #fee9b2;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title7 {
+    background-color: #fee9b2;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #732f00; /* 焦糖深棕，對比度 8.20:1 */
+}
+
+/* 單色淺紅 */
+.soft-block8 {
+    border: 2px solid #fbd1b7;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.soft-title8 {
+    background-color: #fbd1b7;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #701a02; /* 磚深紅，對比度 8.11:1 */
+}
+
+/* 漸層紅 */
+.gradient-block1 {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.gradient-title1 {
+    background: #ff9472;
+    background: -webkit-linear-gradient(to right, #f2709c, #ff9472);
+    background: linear-gradient(to right, #f2709c, #ff9472);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #360515; /* 暗李紫，全寬對比度 6.37:1 ~ 8.18:1 */
+}
+
+/* 漸層藍 */
+.gradient-block2 {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.gradient-title2 {
+    background: #1a2980;
+    background: -webkit-linear-gradient(to left, #007f8c, #1a2980);
+    background: linear-gradient(to left, #007f8c, #1a2980);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #ffffff; /* 白字，全寬對比度 4.88:1 ~ 12.55:1 */
+}
+
+/* 漸層綠 */
+.gradient-block3 {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.gradient-title3 {
+    background: #1d976c;
+    background: -webkit-linear-gradient(to left, #93f9b9, #1d976c);
+    background: linear-gradient(to left, #93f9b9, #1d976c);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #01170d; /* 深黑翡翠綠，全寬對比度 5.04:1 ~ 14.60:1 */
+}
+
+/* 漸層黃 */
+.gradient-block4 {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.gradient-title4 {
+    background: #fdc830;
+    background: -webkit-linear-gradient(to right, #f37335, #fdc830);
+    background: linear-gradient(to right, #f37335, #fdc830);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #361500; /* 深濃咖啡色，全寬對比度 5.79:1 ~ 10.66:1 */
+}
+
+/* =========================================================
+   3. 特殊底線標題區塊 (sp-title1 ~ sp-title8) 共用架構
+   ========================================================= */
+.sp-block1, .sp-block2, .sp-block3, .sp-block4,
+.sp-block5, .sp-block6, .sp-block7, .sp-block8 {
+    background-color: #ffffff;
+    margin-bottom: 25px;
+    padding: 15px;
+}
+
+.sp-title1, .sp-title2, .sp-title3, .sp-title4,
+.sp-title5, .sp-title6, .sp-title7, .sp-title8 {
+    background-color: transparent;
+    padding: 5px 0 5px 0;
+    color: #000000;
+    position: relative;
+}
+
+/* 共通底線位置與形狀 (佔據區塊 75% 寬度、高度 7px) */
+.sp-title1::after, .sp-title1 *::after,
+.sp-title2::after, .sp-title2 *::after,
+.sp-title3::after, .sp-title3 *::after,
+.sp-title4::after, .sp-title4 *::after,
+.sp-title5::after, .sp-title5 *::after,
+.sp-title6::after, .sp-title6 *::after,
+.sp-title7::after, .sp-title7 *::after,
+.sp-title8::after, .sp-title8 *::after {
+    content: "";
+    display: block;
+    width: 75%;
+    height: 7px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* --- 特殊底線顏色個別設定 --- */
+
+/* 1. 特殊黃線標題區塊 */
+.sp-title1::after, .sp-title1 *::after {
+    background-color: #ffe082;
+}
+
+/* 2. 特殊綠線標題區塊 */
+.sp-title2::after, .sp-title2 *::after {
+    background-color: #81c784;
+}
+
+/* 3. 特殊藍線標題區塊 */
+.sp-title3::after, .sp-title3 *::after {
+    background-color: #64b5f6;
+}
+
+/* 4. 特殊紅線標題區塊 */
+.sp-title4::after, .sp-title4 *::after {
+    background-color: #e57373;
+}
+
+/* 5. 特殊紫線標題區塊 */
+.sp-title5::after, .sp-title5 *::after {
+    background-color: #ba68c8;
+}
+
+/* 6. 特殊橘線標題區塊 */
+.sp-title6::after, .sp-title6 *::after {
+    background-color: #ffb74d;
+}
+
+/* 7. 特殊青綠線標題區塊 */
+.sp-title7::after, .sp-title7 *::after {
+    background-color: #4dd0e1;
+}
+
+/* 8. 特殊灰線標題區塊 */
+.sp-title8::after, .sp-title8 *::after {
+    background-color: #b0bec5;
+}
+
+/* =========================================================
+   4. 預設灰階標題區塊
+   ========================================================= */
+
+/* 預設深灰 */
+.default-block1 {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.default-title1 {
+    background: #707070;
+    background: -webkit-linear-gradient(to left, #707070, #5c5c5c);
+    background: linear-gradient(to left, #707070, #5c5c5c);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #ffffff; /* 白字，全寬對比度 4.95:1 ~ 6.55:1 */
+}
+
+/* 預設淺灰 */
+.default-block2 {
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 3px 2px 2px #ccc;
+}
+.default-title2 {
+    background: #cfcfcf;
+    background: -webkit-linear-gradient(to left, #eef2f3, #cfcfcf);
+    background: linear-gradient(to left, #eef2f3, #cfcfcf);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    color: #333333; /* 暗灰字，全寬對比度 8.11:1 ~ 11.21:1 */
+}
+
+.content2 {
+    padding: 5px;
+}

@@ -2,31 +2,52 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lab404\Impersonate\Models\Impersonate;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use Notifiable;
+    use Impersonate;
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that are mass assignable.
      *
-     * @return array<string, string>
+     * @var array
      */
-    protected function casts(): array
+    protected $fillable = [
+        'username',
+        'name',
+        'edu_key',
+        'uid',
+        'order_by',
+        'email',
+        'password',
+        'admin',
+        'code',
+        'school',
+        'kind',
+        'title',
+        'line_key',
+        'line_bot_token',
+        'line_user_id',
+        'login_type',
+        'disable',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    public function groups()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(UserGroup::class);
     }
 }
