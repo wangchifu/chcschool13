@@ -4,6 +4,10 @@
 
 @section('title', '網站設定 | ')
 
+@section('my_meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('in_head_css')
     <style type="text/css">
         /* 修正 BS5 input-group 內調色盤按鈕被平分拉長的問題 */

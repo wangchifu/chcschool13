@@ -26,6 +26,7 @@
     <meta name="description" content="{{ $setup->site_name }}全球資訊網">
     <meta name="author" content="">
     <meta http-equiv="Content-Security-Policy" content="script-src * 'unsafe-inline' 'unsafe-eval';">
+    @yield('my_meta')
     <title>@yield('title'){{ $setup->site_name }}</title>    
     <!-- jQuery-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>

@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -584,4 +585,33 @@ class HomeController extends Controller
         $content = preg_replace($invalid_characters, '', $content);
         return Response::make($content, '200')->header('Content-Type', 'text/xml');
     }    
+
+    public function uploadTinymceImage(Request $request){
+        // 1. 驗證上傳檔案
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // 最大 10MB
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+
+            // 2. 取得學校代碼與使用者 ID
+            $schoolCode = school_code() ?: 'default';
+            $userId = auth()->id() ?: 'guest';
+
+            // 3. 儲存路徑：storage/app/public/{school_code}/photos/{user_id}
+            $folderPath = "{$schoolCode}/photos/{$userId}";            
+            $path = $file->storeAs($folderPath, $fileName, 'public');
+            
+
+            // 4. 回傳 TinyMCE 格式：{ "location": "/storage/079999/photos/9999/xxx.png" }
+            return response()->json([
+                'location' => Storage::url($path)
+            ]);
+        }
+
+        return response()->json(['error' => '未上傳檔案'], 400);
+
+    }
 }

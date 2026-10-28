@@ -611,6 +611,8 @@ Route::middleware('admin_exec')->group(function () {
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         Lfm::routes();
     });
+    Route::post('/tinymce_upload_image', [HomeController::class, 'uploadTinymceImage'])
+    ->middleware(['web', 'auth']);
 
     // 圖片連結管理
     Route::get('photo_links/index/{photo_type_id?}', [PhotoLinksController::class, 'index'])->name('photo_links.index');
