@@ -336,35 +336,35 @@
         </footer>
     @endif
     @if($setup->disable_right==null)
-<div class="footer-copyright text-center py-3 bg-dark text-white border-top border-secondary" id="footer_bottom">
-    <div class="container-fluid px-3">
-        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
-            
-            <div class="fw-semibold small">
-                &copy; {{ date('Y') }} 
-                <a href="{{ route('index','index') }}" class="text-white fw-bold text-decoration-underline">
-                    {{ $setup->site_name }}
-                </a> 
-                <span class="mx-1">All Rights Reserved.</span>
+        <div class="footer-copyright text-center py-3 bg-dark text-white border-top border-secondary" id="footer_bottom">
+            <div class="container-fluid px-3">
+                <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
+                    
+                    <div class="fw-semibold small">
+                        &copy; {{ date('Y') }} 
+                        <a href="{{ route('index','index') }}" class="text-white fw-bold text-decoration-underline">
+                            {{ $setup->site_name }}
+                        </a> 
+                        <span class="mx-1">All Rights Reserved.</span>
+                    </div>
+
+                    <span class="d-none d-md-inline opacity-50" aria-hidden="true">|</span>
+
+                    <div class="d-flex align-items-center bg-white bg-opacity-10 px-3 py-1 rounded-pill border border-secondary text-white">
+                        <i class="fas fa-chart-line text-warning me-2" aria-hidden="true"></i>
+                        <span class="small fw-bold">訪客人次：</span>
+                        <span class="fw-bold">{{ number_format($setup->views) }}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-white bg-opacity-10 px-3 py-1 rounded-pill border border-secondary text-white">
+                        <i class="fas fa-network-wired text-info me-2" aria-hidden="true"></i>
+                        <span class="small fw-bold">您的 IP：</span>
+                        <span class="fw-bold">{{ GetIP() }}</span>
+                    </div>
+
+                </div>
             </div>
-
-            <span class="d-none d-md-inline opacity-50" aria-hidden="true">|</span>
-
-            <div class="d-flex align-items-center bg-white bg-opacity-10 px-3 py-1 rounded-pill border border-secondary text-white">
-                <i class="fas fa-chart-line text-warning me-2" aria-hidden="true"></i>
-                <span class="small fw-bold">訪客人次：</span>
-                <span class="fw-bold">{{ number_format($setup->views) }}</span>
-            </div>
-
-            <div class="d-flex align-items-center bg-white bg-opacity-10 px-3 py-1 rounded-pill border border-secondary text-white">
-                <i class="fas fa-network-wired text-info me-2" aria-hidden="true"></i>
-                <span class="small fw-bold">您的 IP：</span>
-                <span class="fw-bold">{{ GetIP() }}</span>
-            </div>
-
-        </div>
-    </div>
-</div>                   
+        </div>                   
     @endif
 
     <?php $admin = \App\Models\User::where('username','admin')->first(); ?>

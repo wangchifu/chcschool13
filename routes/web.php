@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\OpenFileController;
@@ -605,8 +606,11 @@ Route::middleware('admin_exec')->group(function () {
     Route::get('inside_files_edit/{inside_file}/{path}', [InsideFilesController::class, 'edit'])->name('inside_files.edit');
     Route::patch('inside_files_update/{inside_file}', [InsideFilesController::class, 'update'])->name('inside_files.update');
 
-    Route::get('/laravel-filemanager', [\UniSharp\LaravelFilemanager\Controllers\LfmController::class, 'show']);
-    Route::post('/laravel-filemanager/upload', [\UniSharp\LaravelFilemanager\Controllers\UploadController::class, 'upload']);
+    //Route::get('/laravel-filemanager', [\UniSharp\LaravelFilemanager\Controllers\LfmController::class, 'show']);
+    //Route::post('/laravel-filemanager/upload', [\UniSharp\LaravelFilemanager\Controllers\UploadController::class, 'upload']);
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        Lfm::routes();
+    });
 
     // 圖片連結管理
     Route::get('photo_links/index/{photo_type_id?}', [PhotoLinksController::class, 'index'])->name('photo_links.index');

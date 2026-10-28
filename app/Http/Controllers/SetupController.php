@@ -181,7 +181,7 @@ class SetupController extends Controller
     public function nav_default()
     {
         $setup = Setup::first();
-        $att['nav_color'] = null;
+        $att['nav_color'] = '#000000,#ffffff,#ffffff,#000000';
         $att['homepage_name'] = null;
         $att['post_name'] = null;
         $att['openfile_name'] = null;

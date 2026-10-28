@@ -131,7 +131,7 @@
                 @if(isset($module_setup['學校介紹']))
                     <li class="nav-item dropdown @yield('nav_departments_active')">
                         <?php $department_name = ($setup->department_name)?$setup->department_name:"學校介紹"; ?>
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkDepartments" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkDepartments" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                             {{ $department_name }}
                         </a>
                         <?php $departments = \App\Models\Department::orderBy('order_by')->get(); ?>
@@ -169,7 +169,7 @@
                     @if(!empty($types) && is_iterable($types))
                         @foreach($types as $type)
                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdownMenuLink_{{ $type->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdownMenuLink_{{ $type->id }}" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                     {{ $type->name }}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink_{{ $type->id }}">
@@ -238,7 +238,7 @@
                     @if(isset($module_setup['校務行政']))
                         <li class="nav-item dropdown @yield('nav_school_active')">
                             <?php $schoolexec_name = ($setup->schoolexec_name)?$setup->schoolexec_name:"校務行政"; ?>
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSchoolExec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSchoolExec" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 {{ $schoolexec_name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLinkSchoolExec">
@@ -294,7 +294,7 @@
                     @if(auth()->user()->admin)
                         <li class="nav-item dropdown @yield('nav_setup_active')">
                             <?php $setup_name = ($setup->setup_name)?$setup->setup_name:"系統設定"; ?>
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdminSetup" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdminSetup" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 {{ $setup_name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLinkAdminSetup">
@@ -318,7 +318,7 @@
                         </li>
                     @endif
                     <li class="nav-item dropdown @yield('nav_user_active')">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="使用者選單">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" title="使用者選單">
                             <i class="fas fa-user" aria-hidden="true"></i>
                             <span class="visually-hidden">使用者選單</span>
                         </a>
@@ -347,10 +347,10 @@
                                 <li><a class="dropdown-item" href="{{ route('sims.impersonate_leave') }}" onclick="return confirm('確定返回原本帳號？')"><i class="fas fa-user-ninja" aria-hidden="true"></i> 結束模擬</a></li>
                             @endImpersonating
                             <li>
-                                <a class="dropdown-item" href="#" onclick="if(confirm('您確定登出嗎?')) document.getElementById('logout-form').submit(); else return false">
+                                <a class="dropdown-item" href="#" onclick="if(sw_confirm2('您確定登出嗎?','logout_form')) document.getElementById('logout-form').submit(); else return false">
                                     <i class="fas fa-sign-out-alt" aria-hidden="true"></i> 登出
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout_form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                             </li>

@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // 2. 加入到 web 中間件組 (對應舊版 Kernel.php 的 $middlewareGroups['web'])
         $middleware->web(append: [
             \App\Http\Middleware\CleanHtmlSource::class,
+            \App\Http\Middleware\SetLfmPhotoPath::class,
         ]);
 
         // 3. 註冊路由別名 (對應舊版 Kernel.php 的 $routeMiddleware)

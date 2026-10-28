@@ -905,6 +905,11 @@ button.btn-success:hover, button.btn-success:focus,
    ========================================================================== */
 
 /* 下拉選單外觀美化 (高對比外框、柔和深層陰影、極致層級 z-index: 1090) */
+#mainNav .dropdown-menu-end {
+    right: 0 !important;
+    left: auto !important;
+}
+
 #mainNav .dropdown-menu {
     border: 1px solid rgba(0, 0, 0, 0.08) !important;
     border-radius: 12px !important;
@@ -913,8 +918,8 @@ button.btn-success:hover, button.btn-success:focus,
     padding: 0.5rem !important;
     background-color: #ffffff !important;
     z-index: 1090 !important;
-    margin-top: 0.25rem;
-    transition: all 0.2s ease-in-out;
+    margin-top: 0.25rem;    
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out !important;
 }
 
 /* 桌面版 (>= 992px) 滑鼠移上去 (Hover) 自動滑出顯示 */

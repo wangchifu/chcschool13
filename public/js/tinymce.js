@@ -1,87 +1,141 @@
+var lfm = function(options, cb) {
+    var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+    window.open(route_prefix + '?type=' + (options.type || 'file'), 'FileManager', 'width=900,height=600');
+    window.SetUrl = cb;
+};
+
+// 1. 主要編輯器 (tiny_editor)
 tinymce.init({
-	selector: 'textarea#my_editor',
-	language: 'zh_TW', // 設置語言為繁體中文
-	language_url: '/js/zh_TW.js', // 加這行
-	// 1. 確保 plugins 包含 'link' (有些版本文字顏色功能綁在核心或特定套件)
-	plugins: 'fullscreen code table image link lists paste', 
-	// 2. 在 toolbar 加入 forecolor (文字顏色) 和 backcolor (背景顏色)
-	toolbar: 'fullscreen code undo redo | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | table image link unlink openlink | bullist numlist outdent indent | removeformat',
-	//plugins: 'fullscreen code table,image link lists image paste', // 啟用表格功能
-	//toolbar: 'fullscreen code undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | table image link unlink openlink | bullist numlist outdent indent | removeformat',                
-	//paste_data_images: true,//拖過去上傳
-	//images_upload_url: '/contents/upload_image', // Laravel API
-	automatic_uploads: true,
-	// 不自動清理或修改 HTML
-	valid_elements: '*[*]', 
-	extended_valid_elements: '*[*]',
-	verify_html: false,
-	forced_root_block: false,  // 避免自動包裹 `<p>` 標籤
-	remove_trailing_brs: false, // 不刪除尾部 <br>
-	convert_urls: false, // 禁止 TinyMCE 轉換圖片 URL
-	relative_urls: false, // 確保使用絕對 URL
-	remove_script_host: false, // 保留完整的 URL，包括 http:// 或 https://
-
-	// 改為使用 Promise 來處理圖片上傳
-	images_upload_handler: function (blobInfo) {
-		let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-		let formData = new FormData();
-		formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-		return fetch('/tinymce_upload_image', {//laravel API
-			method: 'POST',
-			body: formData,
-			headers: {
-				'X-CSRF-TOKEN': csrfToken,
-				'X-Requested-With': 'XMLHttpRequest'
-			},
-			credentials: 'same-origin'
-		})
-		.then(response => {
-			if (!response.ok) {
-				return Promise.reject('伺服器回應錯誤，狀態碼：' + response.status);
-			}
-			return response.json();
-		})
-		.then(data => {
-			if (data && data.location) {
-				// 返回圖片 URL，讓 TinyMCE 插入圖片
-				return data.location;
-			} else {
-				return Promise.reject('伺服器回傳的 JSON 不包含 `location` 欄位');
-			}
-		})
-		.catch(error => {
-			console.error('圖片上傳錯誤:', error);
-			return Promise.reject('圖片上傳失敗');
-		});
-	}
-});
-
-tinymce.init({
-    selector: 'textarea#my_editor2',
-    language: 'zh_TW', // 設置語言為繁體中文
+    selector: 'textarea#tiny_editor',
+    language: 'zh_TW',
     language_url: '/js/zh_TW.js',
     
-    // 🛡️ 安全優化 1：只啟用最基礎且安全的套件，徹底移除 code (檢視原始碼)、table 與 image 功能
-    plugins: 'fullscreen link lists paste', 
+    // 網址處理關鍵設定：確保輸出以 "/" 開頭的相對路徑 (不帶 http://網域)
+    relative_urls: false,
+    remove_script_host: true,
+    convert_urls: true,
     
-    // 🛡️ 安全優化 2：精簡工具列，提供基礎的文字樣式調整
-    // fontsize (文字大小)、forecolor (文字顏色)、bold (粗體)、italic (斜體)
+    // 將 Bootstrap 5 樣式灌入編輯區
+    content_css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+
+    plugins: 'fullscreen code table image link lists paste', 
+    toolbar: 'fullscreen code undo redo | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | table image link unlink openlink | bullist numlist outdent indent | removeformat',
+
+    // 設定點擊「插入圖片 / 檔案」時觸發的 File Picker
+    file_picker_callback: function (callback, value, meta) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+        
+        var type = (meta.filetype === 'image' || meta.fieldname === 'image') ? 'Images' : 'Files';
+        var cmsURL = '/laravel-filemanager?editor=' + meta.fieldname + '&type=' + type;
+
+        tinymce.activeEditor.windowManager.openUrl({
+            url : cmsURL,
+            title : '檔案與圖片管理器',
+            width : x * 0.8,
+            height : y * 0.8,
+            resizable : "yes",
+            close_previous : "no",
+            onMessage: (api, message) => {
+                var rawUrl = message.content;
+                var relativePath = rawUrl;
+
+                // 🎯 方法二：自動擷取相對路徑 (例如：/storage/079999/photos/1.png)
+                try {
+                    var urlObj = new URL(rawUrl, window.location.origin);
+                    relativePath = urlObj.pathname;
+                } catch (e) {
+                    relativePath = rawUrl.replace(/^https?:\/\/[^\/]+/, '');
+                }
+
+                // 🎯 自動取得圖片原始寬高，解決寬高為空值的問題
+                if (meta.fieldname === 'image') {
+                    var img = new Image();
+                    img.onload = function () {
+                        callback(relativePath, {
+                            width: img.naturalWidth || img.width,
+                            height: img.naturalHeight || img.height,
+                            alt: ''
+                        });
+                    };
+                    img.onerror = function () {
+                        callback(relativePath);
+                    };
+                    img.src = relativePath;
+                } else {
+                    callback(relativePath);
+                }
+            }
+        });
+    },
+
+    automatic_uploads: true,
+    valid_elements: '*[*]', 
+    extended_valid_elements: '*[*]',
+    verify_html: false,
+    forced_root_block: false,    // 避免自動包裹 <p> 標籤
+    remove_trailing_brs: false, // 不刪除尾部 <br>
+
+    // 拖曳或剪貼簿直接上傳圖片處理
+    images_upload_handler: function (blobInfo) {
+        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let formData = new FormData();
+        formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+        return fetch('/tinymce_upload_image', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                return Promise.reject('伺服器回應錯誤，狀態碼：' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data && data.location) {
+                // 🎯 方法二：將 API 回傳的 location 轉為相對路徑
+                try {
+                    var urlObj = new URL(data.location, window.location.origin);
+                    return urlObj.pathname;
+                } catch (e) {
+                    return data.location.replace(/^https?:\/\/[^\/]+/, '');
+                }
+            } else {
+                return Promise.reject('伺服器回傳的 JSON 不包含 `location` 欄位');
+            }
+        })
+        .catch(error => {
+            console.error('圖片上傳錯誤:', error);
+            return Promise.reject('圖片上傳失敗');
+        });
+    }
+});
+
+// 2. 精簡版編輯器 (small_editor)
+tinymce.init({
+    selector: 'textarea#small_editor',
+    language: 'zh_TW',
+    language_url: '/js/zh_TW.js',
+    
+    // 網址處理關鍵設定一致化
+    relative_urls: false,
+    remove_script_host: true,
+    convert_urls: true,
+    
+    content_css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+    plugins: 'fullscreen link lists paste', 
     toolbar: 'undo redo | fontsize | bold italic underline forecolor | alignleft aligncenter alignright | link unlink | bullist numlist | removeformat fullscreen',
     
-    // 🛡️ 安全優化 3：防範 XSS 攻擊的安全設定
-    // 徹底移除 valid_elements: '*[*]' 與 verify_html: false！
-    // 讓 TinyMCE 自動幫你過濾掉不安全的 <script>、<iframe> 或 javascript: 偽協議。
     verify_html: true, 
-    
-    // 限制只能輸入基本的 HTML 標籤，進一步防止惡意攻擊者繞過檢查
     allowed_elements: 'p,span,br,strong,em,u,ul,ol,li,a',
     extended_valid_elements: 'a[href|target=_blank|title],span[style],p[style]',
 
-    // 基礎排版設定保持一致
-    forced_root_block: false,      // 避免自動包裹 `<p>` 標籤
-    remove_trailing_brs: false,    // 不刪除尾部 <br>
-    convert_urls: false,           // 禁止 TinyMCE 轉換圖片 URL
-    relative_urls: false,          // 確保使用絕對 URL
-    remove_script_host: false      // 保留完整的 URL
+    forced_root_block: false,      // 避免自動包裹 <p> 標籤
+    remove_trailing_brs: false    // 不刪除尾部 <br>
 });

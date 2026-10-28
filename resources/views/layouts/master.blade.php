@@ -27,11 +27,16 @@
     <meta name="author" content="">
     <meta http-equiv="Content-Security-Policy" content="script-src * 'unsafe-inline' 'unsafe-eval';">
     <title>@yield('title'){{ $setup->site_name }}</title>    
+    <!-- jQuery-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/localization/messages_zh_TW.min.js"></script>
     <!-- icons & styles -->        
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/venobox@2.2.1/dist/venobox.min.css">    
+    <link href="https://cdn.jsdelivr.net/npm/fontawesome-iconpicker@3.2.0/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/venobox@2.2.1/dist/venobox.min.css">        
     <link href="{{ asset('css/my_css.css') }}" rel="stylesheet">
     @if($setup->fixed_nav)
         <link href="{{ asset('css/navbar-top-fixed.css') }}" rel="stylesheet">
@@ -148,7 +153,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/venobox@2.2.1/dist/venobox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-<script src="{{ asset('js/tinymce.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/fontawesome-iconpicker@3.2.0/dist/js/fontawesome-iconpicker.min.js"></script>
 <script src="{{ asset('js/venobox.js') }}"></script>
 <script src="{{ asset('js/sweet_alert.js') }}"></script>
 <script src="{{ asset('js/my_js.js') }}"></script>
