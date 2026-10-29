@@ -202,7 +202,7 @@
 
                         <!-- 儲存基本設定按鈕 -->
                         <div class="text-end">
-                            <button type="button" class="btn btn-primary px-4" onclick="sw_confirm2('確定儲存基本設定？','this_form1')">
+                            <button type="button" id="this_form1_button" class="btn btn-primary px-4" onclick="sw_confirm2('確定儲存基本設定？','this_form1','this_form1_button')">
                                 <i class="fas fa-save me-1"></i> 儲存基本設定
                             </button>
                         </div>
@@ -322,10 +322,10 @@
                                     </div>
                                 </div>
                                 <div class="p-3 bg-light border-top d-flex justify-content-between align-items-center">
-                                    <a href="#!" class="btn btn-outline-danger btn-sm" id="default_color" onclick="sw_confirm1('確定要將導覽列還原為預設顏色嗎？','{{ route('setups.nav_default') }}')">
-                                        <i class="fas fa-undo me-1"></i> 還原導覽列預設值
-                                    </a>
-                                    <button type="button" class="btn btn-primary px-4" onclick="sw_confirm2('確定儲存導覽列設定？','this_form2')">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" id="default_color_button" onclick="sw_confirm1('確定要將導覽列還原為預設顏色嗎？', '{{ route('setups.nav_default') }}','default_color_button')">
+                                        <i class="fas fa-undo me-1"></i> 還原預設顏色
+                                    </button>
+                                    <button type="button" id="this_form2_button" class="btn btn-primary px-4" onclick="sw_confirm2('確定儲存導覽列設定？','this_form2','this_form2_button')">
                                         <i class="fas fa-save me-1"></i> 儲存導覽列設定
                                     </button>
                                 </div>
@@ -359,7 +359,5 @@
             });
             
         });
-
-
     </script>
 @endsection

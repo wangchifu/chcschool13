@@ -9,7 +9,15 @@ tinymce.init({
     selector: 'textarea#tiny_editor',
     language: 'zh_TW',
     language_url: '/js/zh_TW.js',
-    
+    // 🎯 1. 允許在 body 內嵌 <style> 標籤 (預設 body 不允許放 style)
+    valid_children: '+body[style]',
+
+    // 🎯 2. 允許 <style> 與 <link> 標籤保留及其屬性，不被過濾刪除
+    extended_valid_elements: 'style[type|lang],link[rel|href|type|media]',
+
+    // 🎯 3. 防止 TinyMCE 自動清理或轉換 HTML 標籤
+    verify_html: false,
+    cleanup: false,
     // 網址處理關鍵設定：確保輸出以 "/" 開頭的相對路徑 (不帶 http://網域)
     relative_urls: false,
     remove_script_host: true,

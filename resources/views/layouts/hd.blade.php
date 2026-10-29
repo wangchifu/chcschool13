@@ -1,11 +1,11 @@
 {{-- 無障礙 HM1240401C 修正：補上 title 與 aria-label，明確說明可展開/收合 --}}
-<a data-toggle="collapse" href="#collapse_hd" role="button" aria-expanded="false" aria-controls="collapse_hd" style="color:black;" title="點擊展開或收合硬碟容量詳細使用率" aria-label="點擊展開或收合硬碟容量詳細使用率">
+<a data-bs-toggle="collapse" href="#collapse_hd" role="button" aria-expanded="false" aria-controls="collapse_hd" style="color:black;" title="點擊展開或收合硬碟容量詳細使用率" aria-label="點擊展開或收合硬碟容量詳細使用率">
     容量使用率：{{ $per }} %
 </a>
 
 <div class="collapse mt-2" id="collapse_hd">
     <div class="card card-body p-2">
-        <p class="mb-1 small font-weight-bold">
+        <p class="mb-1 small fw-bold">
             已使用容量：{{ $size }} MB / 5 GB ({{ $per }}%)
         </p>
         
@@ -18,7 +18,7 @@
                  aria-valuemax="100" 
                  aria-valuetext="已使用 {{ $per }}%，共 {{ $size }} MB"
                  style="width: {{ $per }}%;">
-                <span class="sr-only">{{ $per }}%</span>
+                <span class="visually-hidden">{{ $per }}%</span>
             </div>
         </div>
     </div>

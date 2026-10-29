@@ -1,61 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {        
-        // 抓取畫面上所有 class 含有 save-btn 的元素		
-		
-		const saveBtns = document.querySelectorAll('.save-btn');    
-		saveBtns.forEach(function(btn) {
-			// 🎯 1. 在這裡的 function 括號內加上 "e" 接收事件物件
-			btn.addEventListener('click', function(e) {  
-				
-				// 🎯 2. 在第一行加上這一句，立刻阻止瀏覽器原生的表單直接送出行為
-				e.preventDefault();
-
-				const formId = this.getAttribute('data-form');
-				const $form = $("#" + formId); // 取得 jQuery 物件
-
-				// 核心關鍵修正：改用原生的 reportValidity() 進行跨表格驗證
-				// $form[0] 可以把 jQuery 物件轉回原生的 DOM 節點物件
-				if ($form[0] && $form[0].reportValidity()) {
-					
-					// 驗證成功：隱藏按鈕並執行原本的 sweet alert 確認視窗
-					btn.style.display = 'none';
-					const message = this.getAttribute('data-msg') || '確定要儲存嗎？';
-					sw_confirm2(message, formId, btn);
-
-				} else {
-					// 驗證失敗：按鈕保持顯示，瀏覽器會自動把畫面滾動到漏填的欄位並跳出提示
-					console.log('表單驗證失敗，請檢查跨表格的必填欄位');
-				}
-			});
-		});		
-    
-
-        // 抓取畫面上所有 class 含有 delete-btn 的元素 a 連結
-		const deleteBtn1s = document.querySelectorAll('.delete-btn1');
-		deleteBtn1s.forEach(function(btn) {
-			btn.addEventListener('click', function(e) {                    
-				e.preventDefault();                    				
-				btn.style.display = 'none';              				    			
-				const message = this.getAttribute('data-msg') || '確定要刪除嗎？';
-				const targetUrl = this.getAttribute('data-url');                                        
-				if (typeof sw_confirm1 === 'function') {
-					sw_confirm1(message,targetUrl,btn);
-				}
-			});
-		});
-		
-		// 抓取畫面上所有 class 含有 save-btn 的元素 送 form
-		const deleteBtn2s = document.querySelectorAll('.delete-btn2');
-		deleteBtn2s.forEach(function(btn) {
-			btn.addEventListener('click', function() {                    				    			
-				btn.style.display = 'none';              				    			
-				const message = this.getAttribute('data-msg') || '確定要刪除嗎？';
-				const form = this.getAttribute('data-form');
-				sw_confirm2(message,form,btn);                             				
-			});
-		});
-});
-
-function sw_confirm1(message,url,button) {
+function sw_confirm1(message,url,button_id) {
+	button = document.getElementById(button_id);
+	if (button_id) {
+		button.disabled = true;
+		//button.style.display = 'none';
+	}
 	Swal.fire({
 		title: "操作確認",
 		text: message,
@@ -70,13 +18,19 @@ function sw_confirm1(message,url,button) {
 		else {
 			// 使用者按取消：把按鈕顯示回來
             if (button) {
-                button.style.display = ''; 
+				button.disabled = false;
+                //button.style.display = ''; 
             }
 			return false;
 		}
 	});
 }
-function sw_confirm2(message,id, button) {
+function sw_confirm2(message,id, button_id) {
+	button = document.getElementById(button_id);
+	if (button) {
+		button.disabled = true;
+		//button.style.display = 'none';
+	}
 	Swal.fire({
 		title: "操作確認",
 		text: message,
@@ -86,13 +40,14 @@ function sw_confirm2(message,id, button) {
 		cancelButtonText:"取消",
 	}).then(function(result) {
 		if (result.value) {
-		//document.getElementById(id).submit();
-		check_required(id);
+		//document.getElementById(id).submit();		
+		check_required(id,button);
 		}
 		else {
 			// 使用者按取消：把按鈕顯示回來
             if (button) {
-                button.style.display = ''; 
+				button.disabled = false;
+                //button.style.display = ''; 
             }
 			return false;
 		}
@@ -171,7 +126,9 @@ function check_required(id,button) {
 		} 
 	}); 
 	if (!isValid) { event.preventDefault(); 
-		let msg = "以下欄位尚未填寫：\r\n" + missing.join("\r\n"); button.style.display = ''; 
+		let msg = "以下欄位尚未填寫：\r\n" + missing.join("\r\n"); 
+		button.disabled = false;
+		//button.style.display = ''; 
 		sw_alert('錯誤！', msg); 
 	} else { 
 		form.submit(); 

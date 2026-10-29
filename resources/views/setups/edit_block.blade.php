@@ -2,168 +2,193 @@
 
 @section('title', '編輯區塊 | ')
 
+@section('my_meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
+<div class="container-fluid py-3">
     @include('layouts.errors')
-    {{ Form::open(['route' => ['setups.update_block',$block->id], 'method' => 'patch']) }}
-    <table class="table">
-        <tr>
-            <td>
-                <div class="form-group">
-                    <label for="site_name">1.放置欄位</label>
-                    {{ Form::select('setup_col_id', $setup_array,$block->setup_col_id, ['class' => 'form-control','placeholder'=>'']) }}
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    <label for="order_by">2.排序</label>
-                    {{ Form::text('order_by',$block->order_by,['id'=>'order_by','class' => 'form-control', 'placeholder' => '數字']) }}
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    <label for="site_name">3.標題名稱</label>
-                    @if(str_contains($block->title,'系統區塊') or str_contains($block->title,'榮譽榜跑馬燈'))
-                        <?php 
-                            $new_title = (empty($block->new_title))?$block->title:$block->new_title;
-                            $new_title=str_replace('(系統區塊)','',$new_title); 
-                        ?>
-                        {{ Form::text('new_title',$new_title,['class' => 'form-control','required'=>'required']) }}
-                        <input type="hidden" name="title" value="{{ $block->title }}">
-                    @else
-                        {{ Form::text('title',$block->title,['class' => 'form-control','required'=>'required']) }}
-                    @endif
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="form-group">
-                    <label for="site_name">4.<a href="{{ route('setups.block_color') }}">標題底色</a></label>
-                    {{ Form::select('block_color', $block_colors,$block->block_color, ['class' => 'form-control','placeholder'=>'']) }}
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    <label for="block_position">5.標題位置</a></label>
-                    <?php
-                        if($block->block_position=="text-left"){
-                            $select1 = "selected";
-                            $select2 = null;
-                            $select3 = null;
-                            $select4 = null;
-                        }
-                        if($block->block_position=="text-center"){
-                            $select1 = null;
-                            $select2 = "selected";
-                            $select3 = null;
-                            $select4 = null;
-                        }
-                        if($block->block_position=="text-right"){
-                            $select1 = null;
-                            $select2 = null;
-                            $select3 = "selected";
-                            $select4 = null;
-                        }
-                        if($block->block_position=="disable"){
-                            $select1 = null;
-                            $select2 = null;
-                            $select3 = null;
-                            $select4 = "selected";
-                        }
-                        if($block->block_position==null){
-                            $select1 = "selected";
-                            $select2 = null;
-                            $select3 = null;
-                            $select4 = null;
-                        }
-                    ?>
-                    <select name="block_position" id="block_position" class="form-control">
-                        <option value="text-left" {{ $select1 }}>置左</option>
-                        <option value="text-center" {{ $select2 }}>置中</option>
-                        <option value="text-right" {{ $select3 }}>置右</option>
-                        <option value="disable" {{ $select4 }}>不顯示標題</option>
-                    </select>
-                </div>
-            </td>
-            <td>
-                <?php 
-                    if($block->disable_block_line==null){
-                            $select1 = "selected";
-                            $select2 = null;
-                        }
-                    if($block->disable_block_line=="1"){
-                            $select1 = null;
-                            $select2 = "selected";
-                        }
-                ?>
-                <div class="form-group">
-                    <label for="site_name">6.框線</label>
-                    <select class="form-control" name="disable_block_line">
-                        <option value="" {{ $select1 }}>*有*框線</option>
-                        <option value="1" {{ $select2 }}>*無*框線</option>
-                    </select>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                @if(str_contains($block->title,'榮譽榜跑馬燈'))
-                    <!--
-                    <div class="form-group">
-                        <label for="content">6.跑馬燈設定*</label>
-                        {{ Form::textarea('content',$block->content,['id'=>'marquee-editor','class'=>'form-control','required'=>'required']) }}
-                    </div>
-                    -->
-                    <div class="form-group">
-                        <div class="alert alert-light" role="alert">
-                            <span class="text-danger">「榮譽榜跑馬燈」固定跑動樣式。</span><br>
-                            <!--
-                            方向設定：direction="參數值"；可設定 up（向上）、dun（向下）、left（向左）、right（向右）<br>
-                            速度設定：scrollamount="參數值" ；可設定為數字，通常設定 1~10 的範圍，數字越大跑得越快<br>
-                            長度設定：height="參數值"；數字，自行設定<br>
-                            寬度設定：width="參數值"；數字，自行設定<br>
-                            行為設定：behavior="參數值"；可設定 alternate（來回跑）、slide（跑入後停止）<br>
-                            背景顏色：bgcolor="參數值"；可設定為顏色的色碼，不設定則沒有顏色<br>
-                            -->
+
+    <!-- 主卡片容器 -->
+    <div class="card shadow-sm border">
+        <!-- 卡片頁首與刪除按鈕區塊 -->
+        <div class="card-header bg-light text-dark fw-bold py-3 d-flex justify-content-between align-items-center">
+            <span style="font-size: 1.1rem;">
+                <i class="fas fa-edit me-2 text-primary"></i> 編輯區塊內容與設定
+            </span>
+
+            @if(strpos($block->title, "跑馬燈"))
+            @elseif(!strpos($block->title, '系統區塊'))
+                <form action="{{ route('setups.delete_block', $block->id) }}" method="POST" class="d-inline" id="delete_form">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" id="delete_form_button" class="btn btn-outline-danger btn-sm" onclick="sw_confirm2('確定刪除？','delete_form','delete_form_button')">
+                        <i class="fas fa-trash-alt me-1"></i> 刪除區塊
+                    </button>
+                </form>
+            @endif
+        </div>
+
+        <!-- 編輯表單內容區塊 -->
+        <form action="{{ route('setups.update_block', $block->id) }}" method="POST" id="this_form1">
+            @csrf
+            @method('PATCH')
+
+            <div class="card-body bg-light p-3">
+                <div class="row g-3">
+                    
+                    <!-- 1. 放置欄位 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                <label for="setup_col_id" class="form-label fw-bold text-dark mb-2">
+                                    <span class="badge bg-secondary me-1">1</span> 放置欄位
+                                </label>
+                                <select name="setup_col_id" id="setup_col_id" class="form-select">
+                                    <option value=""></option>
+                                    @foreach($setup_array as $key => $value)
+                                        <option value="{{ $key }}" {{ $block->setup_col_id == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                @elseif(!str_contains($block->title,'系統區塊'))
-                <div class="form-group">
-                    <label for="content">6.內文*</label>
-                    {{ Form::textarea('content',$block->content,['id'=>'my-editor','class'=>'form-control','required'=>'required']) }}
+
+                    <!-- 2. 排序 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                <label for="order_by" class="form-label fw-bold text-dark mb-2">
+                                    <span class="badge bg-secondary me-1">2</span> 排序
+                                </label>
+                                <input type="text" name="order_by" id="order_by" class="form-control" value="{{ $block->order_by }}" placeholder="數字">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 標題名稱 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                <label for="title" class="form-label fw-bold text-dark mb-2">
+                                    <span class="badge bg-primary me-1">3</span> 標題名稱 <span class="text-danger">*</span>
+                                </label>
+                                @if(str_contains($block->title, '系統區塊') or str_contains($block->title, '榮譽榜跑馬燈'))
+                                    <?php 
+                                        $new_title = (empty($block->new_title)) ? $block->title : $block->new_title;
+                                        $new_title = str_replace('(系統區塊)', '', $new_title); 
+                                    ?>
+                                    <input type="text" name="new_title" id="new_title" class="form-control" value="{{ $new_title }}" required="required">
+                                    <input type="hidden" name="title" value="{{ $block->title }}">
+                                @else
+                                    <input type="text" name="title" id="title" class="form-control" value="{{ $block->title }}" required="required">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 標題底色 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                <label for="block_color" class="form-label fw-bold text-dark mb-2">
+                                    <span class="badge bg-info text-dark me-1">4</span> <a href="{{ route('setups.block_color') }}" class="text-decoration-none">標題底色</a>
+                                </label>
+                                <select name="block_color" id="block_color" class="form-select">
+                                    <option value=""></option>
+                                    @foreach($block_colors as $key => $value)
+                                        <option value="{{ $key }}" {{ $block->block_color == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. 標題位置 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                <label for="block_position" class="form-label fw-bold text-dark mb-2">
+                                    <span class="badge bg-info text-dark me-1">5</span> 標題位置
+                                </label>
+                                <?php
+                                    $select1 = ($block->block_position == "text-left" || $block->block_position == null) ? "selected" : "";
+                                    $select2 = ($block->block_position == "text-center") ? "selected" : "";
+                                    $select3 = ($block->block_position == "text-right") ? "selected" : "";
+                                    $select4 = ($block->block_position == "disable") ? "selected" : "";
+                                ?>
+                                <select name="block_position" id="block_position" class="form-select">
+                                    <option value="text-left" {{ $select1 }}>置左</option>
+                                    <option value="text-center" {{ $select2 }}>置中</option>
+                                    <option value="text-right" {{ $select3 }}>置右</option>
+                                    <option value="disable" {{ $select4 }}>不顯示標題</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. 框線設定 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                <label for="disable_block_line" class="form-label fw-bold text-dark mb-2">
+                                    <span class="badge bg-info text-dark me-1">6</span> 框線
+                                </label>
+                                <?php 
+                                    $line_select1 = ($block->disable_block_line == null) ? "selected" : "";
+                                    $line_select2 = ($block->disable_block_line == "1") ? "selected" : "";
+                                ?>
+                                <select name="disable_block_line" id="disable_block_line" class="form-select">
+                                    <option value="" {{ $line_select1 }}>*有*框線</option>
+                                    <option value="1" {{ $line_select2 }}>*無*框線</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. 內文編輯器 / 跑馬燈提示 -->
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body bg-white rounded p-3">
+                                @if(str_contains($block->title, '榮譽榜跑馬燈'))
+                                    <div class="alert alert-light border mb-0" role="alert">
+                                        <span class="text-danger fw-bold"><i class="fas fa-info-circle me-1"></i> 「榮譽榜跑馬燈」固定跑動樣式。</span>
+                                    </div>
+                                @elseif(!str_contains($block->title, '系統區塊'))
+                                    <label for="my-editor" class="form-label fw-bold text-dark mb-2">
+                                        <span class="badge bg-primary me-1">7</span> 內文 <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea name="content" id="tiny_editor" class="form-control" required="required">{{ $block->content }}</textarea>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                @endif
-            </td>
-        </tr>
-    </table>
-    <script src="{{ asset('mycke/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('my-editor'
-            ,{
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images',
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files',
-            });
-    </script>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定儲存？')">
-            <i class="fas fa-save"></i> 儲存區塊
-        </button>
-    </div>
-    {{ Form::close() }}
-    @if(strpos($block->title,"跑馬燈"))
-        
-    @elseif(!strpos($block->title,'系統區塊'))
-    <div class="text-right">
-        <form action="{{ route('setups.delete_block',$block->id) }}" method="post">
-            @csrf
-            @method('delete')
-            <button class="btn btn-danger btn-sm" onclick="return confirm('確定刪除？若有區塊放置在此欄位，記得去變更！')">刪除</button>
+            </div>
+
+            <!-- 頁尾儲存按鈕 -->
+            <div class="card-footer bg-light text-end py-3 border-top">
+                <button type="button" id="this_form1_button" class="btn btn-primary px-4" onclick="sw_confirm2('確定儲存？','this_form1','this_form1_button')">
+                    <i class="fas fa-save me-1"></i> 儲存區塊
+                </button>
+            </div>
         </form>
     </div>
-    @endif
-    <hr>
-    標題底色參考：<br>
-    <a href="{{ route('setups.block_color') }}"><img src="{{ asset('color.png') }}" class="img-thumbnail" alt="..."></a>
+
+    <!-- 標題底色參考區域 -->
+    <div class="mt-4 p-3 bg-white border rounded shadow-sm">
+        <span class="fw-bold text-dark"><i class="fas fa-palette me-1 text-info"></i> 標題底色參考：</span><br>
+        <a href="{{ route('setups.block_color') }}" class="d-inline-block mt-2">
+            <img src="{{ asset('color.png') }}" class="img-thumbnail" alt="標題底色參考">
+        </a>
+    </div>
+</div>
+
+@endsection
+
+@section('at_bottom_js')    
+    <script src="https://cdn.tiny.cloud/1/t3x62bustao4bqhd7m12sm2o54zuql6jdimapxaxkwc0swtb/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/tinymce.js') }}"></script>
 @endsection

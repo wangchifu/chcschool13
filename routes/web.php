@@ -713,6 +713,7 @@ Route::middleware('admin')->group(function () {
     Route::get('departments', [DepartmentController::class, 'index'])->name('departments.index');
     Route::get('departments/create', [DepartmentController::class, 'create'])->name('departments.create');
     Route::get('departments/show_log/{id}', [DepartmentController::class, 'show_log'])->name('departments.show_log');
+    Route::get('departments/edit_log/{log}', [DepartmentController::class, 'edit_log'])->name('departments.edit_log');
     Route::get('departments/delete_log/{log}', [DepartmentController::class, 'delete_log'])->name('departments.delete_log');
     Route::post('departments', [DepartmentController::class, 'store'])->name('departments.store');
     Route::delete('departments/{department}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
@@ -724,6 +725,7 @@ Route::middleware('admin')->group(function () {
     Route::get('contents/search/{tag}', [ContentsController::class, 'search'])->name('contents.search');
     Route::get('contents/create', [ContentsController::class, 'create'])->name('contents.create');
     Route::get('contents/show_log/{id}', [ContentsController::class, 'show_log'])->name('contents.show_log');
+    Route::get('contents/edit_log/{log}', [ContentsController::class, 'edit_log'])->name('contents.edit_log');
     Route::get('contents/delete_log/{log}', [ContentsController::class, 'delete_log'])->name('contents.delete_log');
     Route::post('contents/store', [ContentsController::class, 'store'])->name('contents.store');
     Route::delete('contents/{content}', [ContentsController::class, 'destroy'])->name('contents.destroy');

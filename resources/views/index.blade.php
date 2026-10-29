@@ -171,7 +171,7 @@
                                             @auth
                                                 @if(auth()->user()->admin==1)
                                                     <div class="float-end pe-2">
-                                                        <a href="javascript:open_window('{{ route('setups.edit_block',$block->id) }}','新視窗')" title="編輯區塊：{{ $title }}" aria-label="編輯區塊：{{ $title }}">📝</a>
+                                                        <a href="{{ route('setups.edit_block',$block->id) }}" title="編輯區塊：{{ $title }}" aria-label="編輯區塊：{{ $title }}" class="venobox" data-vbtype="iframe">📝</a>
                                                     </div>
                                                 @endif
                                             @endauth
@@ -325,7 +325,7 @@
                         @auth
                             @if(auth()->user()->admin==1)  
                                 <div class="float-end">
-                                    <a href="javascript:open_window('{{ route('setups.edit_footer') }}','新視窗')" title="編輯頁尾內容" aria-label="編輯頁尾內容">📝</a>
+                                    <a href="{{ route('setups.edit_footer') }}" title="編輯頁尾內容" aria-label="編輯頁尾內容" class="venobox" data-vbtype="iframe">📝</a>
                                 </div>
                             @endif
                         @endauth

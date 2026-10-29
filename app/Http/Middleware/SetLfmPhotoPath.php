@@ -21,6 +21,7 @@ class SetLfmPhotoPath
             'app.url' => $baseUrl,
             'filesystems.disks.public.url' => $baseUrl . '/storage',
         ]);
+        //改中文語系
         app()->setLocale('zh-TW');
 
         return $next($request);

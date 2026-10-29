@@ -40,6 +40,7 @@ return [
     // And set 'user_field' to App\Handler\ConfigHandler::class
     // Ex: The private folder of user will be named as the user id.
     //'private_folder_name'      => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
+    // 為建立上傳目錄改用下行
     'private_folder_name'      => App\Handlers\LfmConfigHandler::class,
 
     'allow_shared_folder'      => false,
