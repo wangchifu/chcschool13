@@ -1,6 +1,6 @@
 @if ($paginator->hasPages())
     <nav aria-label="分頁導覽">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center my-2">
             {{-- 上一頁 --}}
             @if ($paginator->onFirstPage())
                 <li class="page-item disabled" aria-disabled="true">
@@ -32,7 +32,7 @@
                             <li class="page-item active" aria-current="page">
                                 <span class="page-link" title="目前在第 {{ $page }} 頁">
                                     {{ $page }}
-                                    <span class="sr-only">(目前在第 {{ $page }} 頁)</span>
+                                    <span class="visually-hidden">(目前在第 {{ $page }} 頁)</span>
                                 </span>
                             </li>
                         @else

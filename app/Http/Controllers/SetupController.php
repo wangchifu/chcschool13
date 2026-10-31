@@ -653,22 +653,7 @@ class SetupController extends Controller
         $setup = Setup::first();
         $att['all_post'] = ($request->input('all_post'))?1:null;
         $setup->update($att);
-        echo "
-            <script>
-            // 確保頁面加載完成後執行
-            window.onload = function() {
-                // 檢查父頁面是否存在且可以訪問 jQuery
-                if (window.parent && window.parent.$) {
-                    // 關閉 venobox 視窗
-                    if (typeof window.parent.$.venobox !== 'undefined') {
-                        window.parent.$.venobox.close();  // 關閉 venobox 視窗
-                    }
-
-                    // 可選：刷新父頁面，這樣可以讓父頁面顯示最新的內容
-                    window.parent.location.reload();                
-                }
-            };
-            </script>";
+        return back();
     }
 
     public function post_show_number(Request $request)
@@ -677,22 +662,7 @@ class SetupController extends Controller
         $att['post_show_number'] = $request->input('post_show_number');
         
         $setup->update($att);
-        echo "
-            <script>
-            // 確保頁面加載完成後執行
-            window.onload = function() {
-                // 檢查父頁面是否存在且可以訪問 jQuery
-                if (window.parent && window.parent.$) {
-                    // 關閉 venobox 視窗
-                    if (typeof window.parent.$.venobox !== 'undefined') {
-                        window.parent.$.venobox.close();  // 關閉 venobox 視窗
-                    }
-
-                    // 可選：刷新父頁面，這樣可以讓父頁面顯示最新的內容
-                    window.parent.location.reload();                
-                }
-            };
-            </script>";
+        return back();
     }
 
     public function post_line_token(Request $request)
@@ -702,22 +672,8 @@ class SetupController extends Controller
         $att['post_line_bot_token'] = $request->input('post_line_bot_token');
         $att['post_line_group_id'] = $request->input('post_line_group_id');        
         $setup->update($att);
-        echo "
-            <script>
-            // 確保頁面加載完成後執行
-            window.onload = function() {
-                // 檢查父頁面是否存在且可以訪問 jQuery
-                if (window.parent && window.parent.$) {
-                    // 關閉 venobox 視窗
-                    if (typeof window.parent.$.venobox !== 'undefined') {
-                        window.parent.$.venobox.close();  // 關閉 venobox 視窗
-                    }
-
-                    // 可選：刷新父頁面，這樣可以讓父頁面顯示最新的內容
-                    window.parent.location.reload();                
-                }
-            };
-            </script>";
+        
+        return back();
     }
 
     public function close()

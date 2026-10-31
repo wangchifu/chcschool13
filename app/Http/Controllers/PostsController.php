@@ -736,7 +736,7 @@ class PostsController extends Controller
         $att['name'] = $request->input('name');
 
         PostType::create($att);
-        echo "<body onload='opener.location.reload();window.close();'>";
+        return back();
     }
 
     public function update_type(Request $request, PostType $post_type)
@@ -749,7 +749,7 @@ class PostsController extends Controller
         $att['name'] = $request->input('name');
 
         $post_type->update($att);
-        echo "<body onload='opener.location.reload();window.close();'>";
+        return back();
     }
 
     public function delete_type(PostType $post_type)
@@ -760,14 +760,14 @@ class PostsController extends Controller
             $post->update($att);
         }
         $post_type->delete();
-        echo "<body onload='opener.location.reload();window.close();'>";
+        return back();
     }
 
     public function disable_type(PostType $post_type)
     {
         $att['disable'] = ($post_type->disable==1)?null:1;              
         $d = $post_type->update($att);        
-        echo "<body onload='opener.location.reload();window.close();'>";
+        return back();
     }
 
     public function inbox(Post $post)

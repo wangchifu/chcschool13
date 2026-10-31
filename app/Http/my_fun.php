@@ -707,3 +707,24 @@ if (!function_exists('a11y_emoji')) {
         return $result !== null ? $result : $text;
     }
 }
+
+if (! function_exists('str_limit')) {
+    /**
+     * 限制字串長度 (原生 多位元組 UTF-8 安全版)
+     *
+     * @param  string|null  $value
+     * @param  int  $limit
+     * @param  string  $end
+     * @return string
+     */
+    function str_limit(?string $value, int $limit = 100, string $end = '...'): string
+    {
+        $value = $value ?? '';
+
+        if (mb_strlen($value, 'UTF-8') <= $limit) {
+            return $value;
+        }
+
+        return mb_substr($value, 0, $limit, 'UTF-8') . $end;
+    }
+}

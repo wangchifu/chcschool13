@@ -271,7 +271,7 @@ button.btn-success:hover, button.btn-success:focus,
     position: absolute;
     top: 12px;
     right: 12px;
-    z-index: 20 !important; /* 降低階層，確保下方不會擋住導覽列與選單 */
+    z-index: 20 !important;
 }
 
 .carousel-accessibility-control .btn-pause {
@@ -825,7 +825,6 @@ button.btn-success:hover, button.btn-success:focus,
 }
 
 #mainNav .nav-link:hover,
-#mainNav .nav-item:hover > .nav-link,
 #mainNav .nav-item.show > .nav-link {
     color: #0f172a !important;
     background: linear-gradient(
@@ -901,15 +900,15 @@ button.btn-success:hover, button.btn-success:focus,
 }
 
 /* ==========================================================================
-   7. 下拉選單 (Dropdown Menu) - 桌面版 Hover 展開、美化與多層級定位修正
+   7. 下拉選單 (Dropdown Menu) - 回歸 Bootstrap 5 原生點擊觸發 (無 Hover)
    ========================================================================== */
 
-/* 下拉選單外觀美化 (高對比外框、柔和深層陰影、極致層級 z-index: 1090) */
 #mainNav .dropdown-menu-end {
     right: 0 !important;
     left: auto !important;
 }
 
+/* 美化選單卡片樣式 */
 #mainNav .dropdown-menu {
     border: 1px solid rgba(0, 0, 0, 0.08) !important;
     border-radius: 12px !important;
@@ -922,31 +921,15 @@ button.btn-success:hover, button.btn-success:focus,
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out !important;
 }
 
-/* 桌面版 (>= 992px) 滑鼠移上去 (Hover) 自動滑出顯示 */
-@media (min-width: 992px) {
-    #mainNav .nav-item.dropdown:hover > .dropdown-menu {
-        display: block !important;
-        animation: navDropdownFadeIn 0.2s ease-in-out forwards;
-    }
+/* 僅當點擊觸發帶有 .show 時才展開並播放淡入動畫 */
+#mainNav .dropdown-menu.show {
+    animation: navDropdownFadeIn 0.2s ease-in-out forwards;
+}
 
-    /* 多層級（第二層）選單相對定位與側邊展開 */
+/* 桌面版 (>= 992px) 第二層子選單相對定位 */
+@media (min-width: 992px) {
     #mainNav .dropdown-menu li {
         position: relative;
-    }
-
-    #mainNav .dropdown-menu li:hover > .dropdown-menu {
-        display: block !important;
-        top: 0;
-        left: 100%;
-        margin-left: 0.2rem;
-        animation: navDropdownFadeIn 0.2s ease-in-out forwards;
-    }
-
-    /* 靠右對齊時，第二層向左展開 */
-    #mainNav .dropdown-menu-end li:hover > .dropdown-menu {
-        left: auto;
-        right: 100%;
-        margin-right: 0.2rem;
     }
 }
 

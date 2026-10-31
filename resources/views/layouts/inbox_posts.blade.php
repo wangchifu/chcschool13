@@ -11,7 +11,7 @@
 </style>
 
 <?php
-$inbox_posts = \App\Post::where('inbox',1)
+$inbox_posts = \App\Models\Post::where('inbox',1)
                 ->where(function ($query) {
                     $query->where('die_date',null)->orWhere('die_date','>=',date('Y-m-d'));
                 })->where('created_at','<',date('Y-m-d H:i:s'))
@@ -20,9 +20,9 @@ $inbox_posts = \App\Post::where('inbox',1)
 ?>
 <div class="table-responsive">
     {{-- 無障礙表格結構修正：加入 aria-label 描述表格用途 --}}
-    <table class="table table-striped align-middle" style="word-break:break-all;" aria-label="常駐公告列表">
-        <caption class="sr-only">常駐公告表格列表</caption>
-        <thead class="thead-light">
+    <table class="table table-striped table-hover align-middle mb-0" style="word-break:break-all;" aria-label="常駐公告列表">
+        <caption class="visually-hidden">常駐公告表格列表</caption>
+        <thead class="table-light">
         <tr>
             {{-- 無障礙 CS2140401C 修正：將 120px, 100px, 250px, 80px 全數改為 rem 相對單位 --}}
             <th scope="col" class="text-nowrap" style="width: 7.5rem;">
@@ -52,10 +52,10 @@ $inbox_posts = \App\Post::where('inbox',1)
             </td>
             <td>
                 @if($post->top)
-                    <span class="badge badge-danger">置頂</span>
+                    <span class="badge bg-danger me-1">置頂</span>
                 @endif
                 @if($post->inbox)
-                    <span class="badge badge-warning">常駐</span>
+                    <span class="badge bg-warning text-dark me-1">常駐</span>
                 @endif
                 <?php
                 if($post->insite==1){
@@ -68,41 +68,41 @@ $inbox_posts = \App\Post::where('inbox',1)
                     $can_see = 1;
                 };
                 $school_code = school_code();
-                $title = str_limit($post->title,80);
+                $title = $post->title;
                 //有無附件
                 $files = get_files(storage_path('app/public/'.$school_code.'/posts/'.$post->id.'/files'));
                 $photos = get_files(storage_path('app/public/'.$school_code.'/posts/'.$post->id.'/photos'));
                 ?>
                 @if($post->insite==1)
-                    <span class="text-danger font-weight-bold">[ 內部公告 ]</span>
+                    <span class="text-danger fw-bold me-1">[ 內部公告 ]</span>
                 @endif
 
                 {{-- 改用高對比藍色連結與 a11y_emoji --}}
                 @if($can_see)
-                    <a href="{{ route('posts.show',$post->id) }}" class="post-a11y-link font-weight-bold" title="閱讀公告：{{ $post->title }}" aria-label="閱讀公告：{{ $post->title }}">{!! a11y_emoji($title) !!}</a>
+                    <a href="{{ route('posts.show',$post->id) }}" class="post-a11y-link fw-bold" title="閱讀公告：{{ $post->title }}" aria-label="閱讀公告：{{ $post->title }}">{!! a11y_emoji($title) !!}</a>
                 @else
                     <span class="text-secondary">{{ $title }}</span>
                 @endif
 
                 {{-- 無障礙 1.1.1 修正：圖示補上 aria-hidden 與隱藏朗讀文字 --}}
                 @if(!empty($photos))
-                    <span class="text-success ml-1" title="附有圖片檔">
+                    <span class="text-success ms-1" title="附有圖片檔">
                         <i class="fas fa-image" aria-hidden="true"></i>
-                        <span class="sr-only">（附有圖片檔）</span>
+                        <span class="visually-hidden">（附有圖片檔）</span>
                     </span>
                 @endif
                 @if(!empty($files))
-                    <span class="text-info ml-1" title="附有附件下載">
+                    <span class="text-info ms-1" title="附有附件下載">
                         <i class="fas fa-download" aria-hidden="true"></i>
-                        <span class="sr-only">（附有附件下載）</span>
+                        <span class="visually-hidden">（附有附件下載）</span>
                     </span>
                 @endif
             </td>
             <td>
                 {{-- 發佈者超連結套用高對比藍色 --}}
-                <a href="{{ route('posts.job_title',$post->job_title) }}" class="post-a11y-link font-weight-bold" title="查看發佈者 {{ $post->job_title }} 的所有公告" aria-label="查看發佈者 {{ $post->job_title }} 的所有公告">{{ $post->job_title }}</a>
+                <a href="{{ route('posts.job_title',$post->job_title) }}" class="post-a11y-link fw-bold" title="查看發佈者 {{ $post->job_title }} 的所有公告" aria-label="查看發佈者 {{ $post->job_title }} 的所有公告">{{ $post->job_title }}</a>
             </td>
-            <td class="text-center">
+            <td class="text-center fw-bold text-secondary">
                 {{ $post->views }}
             </td>
         </tr>

@@ -381,7 +381,7 @@
                 });
             </script>
             <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title text-danger" id="myModalLabel">嚴重資安危險!</h5>
