@@ -1,15 +1,3 @@
-<!-- 無障礙 1.4.3 色彩對比修正 CSS (確保白底與灰底對比度均 >= 4.5:1) -->
-<style>
-    .post-a11y-link {
-        color: #0056b3 !important;
-        text-decoration: none;
-    }
-    .post-a11y-link:hover, .post-a11y-link:focus {
-        color: #003d82 !important;
-        text-decoration: underline !important;
-    }
-</style>
-
 <?php
 $inbox_posts = \App\Models\Post::where('inbox',1)
                 ->where(function ($query) {

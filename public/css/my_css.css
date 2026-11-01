@@ -1021,3 +1021,40 @@ button.btn-success:hover, button.btn-success:focus,
 .text-danger {
     color: #990000 !important;
 }
+
+/* ===================================================
+   8. 公告模組無障礙色彩對比與按鈕修飾 (Post A11y Styles)
+   =================================================== */
+.post-a11y-link {
+    color: #0056b3 !important;
+    text-decoration: none;
+}
+
+.post-a11y-link:hover, 
+.post-a11y-link:focus {
+    color: #003d82 !important;
+    text-decoration: underline !important;
+}
+
+.text-primary-a11y {
+    color: #0056b3 !important;
+}
+
+/* 讓整行/整張卡片超連結在 hover 或 focus 時，內部的標題也會顯示底線並變深藍色 */
+a:hover .text-primary-a11y,
+a:focus .text-primary-a11y {
+    color: #003d82 !important;
+    text-decoration: underline !important;
+}
+
+.btn-outline-primary-a11y {
+    color: #0056b3 !important;
+    border-color: #0056b3 !important;
+}
+
+.btn-outline-primary-a11y:hover, 
+.btn-outline-primary-a11y:focus {
+    color: #ffffff !important;
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+}

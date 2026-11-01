@@ -1,24 +1,3 @@
-<!-- 無障礙 1.4.3 色彩對比修正 CSS (確保白底與灰底對比度均 >= 4.5:1) -->
-<style>
-    .post-a11y-link {
-        color: #0056b3 !important;
-        text-decoration: none !important; /* 平時無底線 */
-    }
-    .post-a11y-link:hover, .post-a11y-link:focus {
-        color: #003d82 !important;
-        text-decoration: underline !important; /* 滑鼠游標移入或 Tab 鍵焦點時顯示底線 */
-    }
-    .btn-outline-primary-a11y {
-        color: #0056b3 !important;
-        border-color: #0056b3 !important;
-    }
-    .btn-outline-primary-a11y:hover, .btn-outline-primary-a11y:focus {
-        color: #ffffff !important;
-        background-color: #0056b3 !important;
-        border-color: #0056b3 !important;
-    }
-</style>
-
 <?php 
     // 精確判定是否預設顯示「全部公告」頁籤
     $has_all_post = !empty($setup->all_post); 

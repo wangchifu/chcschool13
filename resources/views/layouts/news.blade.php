@@ -1,19 +1,3 @@
-<!-- 無障礙 1.4.3 色彩對比修正 CSS (確保白底與灰底對比度均 >= 4.5:1) -->
-<style>
-    .text-primary-a11y {
-        color: #0056b3 !important; /* 深藍色：白底對比度 7.04:1 / 灰底對比度 6.29:1 */
-    }
-    .btn-outline-primary-a11y {
-        color: #0056b3 !important;
-        border-color: #0056b3 !important;
-    }
-    .btn-outline-primary-a11y:hover, .btn-outline-primary-a11y:focus {
-        color: #ffffff !important;
-        background-color: #0056b3 !important;
-        border-color: #0056b3 !important;
-    }
-</style>
-
 @auth
     @can('create', \App\Models\Post::class)
         <a href="{{ route('posts.create') }}" class="btn btn-success btn-sm">

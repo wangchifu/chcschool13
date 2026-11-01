@@ -1,17 +1,3 @@
-<!-- 無障礙 1.4.3 色彩對比修正 CSS (確保白底與灰底對比度均 >= 4.5:1) -->
-<style>
-    .text-primary-a11y {
-        color: #0056b3 !important; /* 深藍色：白底對比度 7.27:1 / 灰底對比度 6.51:1 */
-    }
-    .post-a11y-link {
-        color: #0056b3 !important;
-        text-decoration: underline;
-    }
-    .post-a11y-link:hover, .post-a11y-link:focus {
-        color: #003d82 !important;
-    }
-</style>
-
 <?php
     $setup = \App\Models\Setup::first();
     $has_all_post = !empty($setup->all_post);
@@ -180,7 +166,7 @@
         </div>
         
         <div class="mt-2">
-            <a href="{{ route('posts.index') }}" class="btn btn-outline-primary btn-sm" style="color: #0056b3; border-color: #0056b3;">
+            <a href="{{ route('posts.index') }}" class="btn btn-outline-primary-a11y btn-sm">
                 <i class="far fa-hand-point-up me-1" aria-hidden="true"></i> 查看更多公告...
             </a>
         </div>
@@ -333,7 +319,7 @@
                 </table>
             </div>            
             <div class="mt-2">
-                <a href="{{ route('posts.type',$post_type->id) }}" class="btn btn-outline-primary btn-sm" style="color: #0056b3; border-color: #0056b3;">
+                <a href="{{ route('posts.type',$post_type->id) }}" class="btn btn-outline-primary-a11y btn-sm">
                     <i class="far fa-hand-point-up me-1" aria-hidden="true"></i> 查看更多 {{ $post_type->name }}...
                 </a>
             </div>
