@@ -1,6 +1,15 @@
 /* 無障礙 2.1.2 核心修正：VenoBox 燈箱全鍵盤控制與 Focus Trap 鎖定 */
 var triggerElement = null;
 var lightboxKeyHandler = null;
+var isReloading = false; // 防鎖死旗標：確保只執行一次 reload
+
+// ⚡ 執行父頁面重整的核心函式
+function triggerParentReload() {
+    if (!isReloading) {
+        isReloading = true;
+        window.location.reload();
+    }
+}
 
 var vb = new VenoBox({
     selector: '.venobox',
@@ -10,24 +19,23 @@ var vb = new VenoBox({
     maxWidth: '100%',
     maxHeight: '90%',
     onPostOpen: function(content, obj, gallIndex, then) {
-        // 1. 記錄開啟前的觸發元件，供關閉時歸還焦點
+        isReloading = false; // 每次開啟燈箱時重置狀態
         triggerElement = document.activeElement;
 
         setTimeout(function() {
             var overlay = document.querySelector('.vbox-overlay');
             if (!overlay) return;
 
-            // 2. 若內容為 iframe，優先將焦點移至 iframe 內部
+            // 若內容為 iframe，優先將焦點移至 iframe 內部
             var iframe = overlay.querySelector('.vbox-content iframe');
             if (iframe) {
                 iframe.focus();
             }
 
-            // 3. 動態強制修復並取得當前畫面上所有可見的可聚焦按鈕
+            // 動態強制修復並取得當前畫面上所有可見的可聚焦按鈕
             function getFocusables() {
                 var allControls = overlay.querySelectorAll('.vbox-close, .vbox-prev, .vbox-next, .vbox-left, .vbox-right');
                 
-                // 強制為 DOM 內部所有控制按鈕補上 Focus 關鍵屬性與 ARIA 標籤
                 allControls.forEach(function(el) {
                     el.setAttribute('tabindex', '0');
                     el.setAttribute('role', 'button');
@@ -43,7 +51,6 @@ var vb = new VenoBox({
                     }
                 });
 
-                // 依 HTML DOM 順序選取潛在焦點
                 var candidates = overlay.querySelectorAll('.vbox-close, .vbox-next, .vbox-prev, .vbox-left, .vbox-right, a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
                 
                 return Array.from(candidates).filter(function(el) {
@@ -56,13 +63,12 @@ var vb = new VenoBox({
                 });
             }
 
-            // 4. 若非 iframe 頁面，預設將焦點定在第一個可聚焦按鈕（關閉按鈕）
             var focusables = getFocusables();
             if (!iframe && focusables.length > 0) {
                 focusables[0].focus();
             }
 
-            // 5. 一體化鍵盤控制（包含 Tab 鎖定循環、Enter/Space 觸發、Esc 關閉、左右方向鍵）
+            // 一體化鍵盤控制
             lightboxKeyHandler = function(e) {
                 var currentOverlay = document.querySelector('.vbox-overlay');
                 if (!currentOverlay || !document.body.contains(currentOverlay)) return;
@@ -71,7 +77,6 @@ var vb = new VenoBox({
                 var keyCode = e.keyCode;
                 var activeEl = document.activeElement;
 
-                // A. Tab 鍵 Focus Trap (嚴格依據 DOM 順序於燈箱內部循環)
                 if (key === 'Tab' || keyCode === 9) {
                     var items = getFocusables();
                     if (items.length === 0) return;
@@ -79,20 +84,18 @@ var vb = new VenoBox({
                     var firstItem = items[0];
                     var lastItem = items[items.length - 1];
 
-                    if (e.shiftKey) { // Shift + Tab (反向移動)
+                    if (e.shiftKey) {
                         if (activeEl === firstItem || !currentOverlay.contains(activeEl)) {
                             e.preventDefault();
                             lastItem.focus();
                         }
-                    } else { // Tab (正向移動)
+                    } else {
                         if (activeEl === lastItem || !currentOverlay.contains(activeEl)) {
                             e.preventDefault();
                             firstItem.focus();
                         }
                     }
                 }
-
-                // B. Enter (13) 或 Space (32) 鍵觸發對應動作，並維持焦點不掉落
                 else if (key === 'Enter' || key === ' ' || keyCode === 13 || keyCode === 32) {
                     if (activeEl) {
                         if (activeEl.classList.contains('vbox-close') || activeEl.closest('.vbox-close')) {
@@ -115,14 +118,10 @@ var vb = new VenoBox({
                         }
                     }
                 }
-
-                // C. Escape (27) 關閉懸浮視窗
                 else if (key === 'Escape' || keyCode === 27) {
                     e.preventDefault();
                     vb.close();
                 }
-
-                // D. 左右方向鍵 (← / →) 直接切換照片
                 else if (key === 'ArrowLeft' || keyCode === 37) {
                     e.preventDefault();
                     vb.prev();
@@ -143,44 +142,46 @@ var vb = new VenoBox({
             document.addEventListener('keydown', lightboxKeyHandler);
         }, 100);
     },
-    onPostClose: function() {
-        // 6. 關閉燈箱時解除鍵盤監聽，並將焦點歸還給原本點擊的觸發元件
+
+    // ⚡ VenoBox 2 修復關鍵：使用 onPreClose 確保點擊關閉/黑框時 100% 同步觸發重整
+    onPreClose: function() {
         if (lightboxKeyHandler) {
             document.removeEventListener('keydown', lightboxKeyHandler);
             lightboxKeyHandler = null;
         }
-        if (triggerElement && typeof triggerElement.focus === 'function') {
-            triggerElement.focus();
-        }
+        triggerParentReload();
+    },
+    
+    // 備用防線
+    onPostClose: function() {
+        triggerParentReload();
     }
 });
 
-/* 原生關閉按鈕事件監聽 */
+/* 原生關閉按鈕雙重保障 */
 $(document).on('click', '.vbox-close', function() {
+    triggerParentReload();
     vb.close();
+});
+
+/* 點擊黑框背景強效保險 */
+$(document).on('click', '.vbox-overlay', function(e) {
+    if ($(e.target).hasClass('vbox-overlay') || $(e.target).hasClass('vbox-container')) {
+        triggerParentReload();
+    }
 });
 
 /* iframe 內部關閉按鈕跨視窗呼叫機制 */
 $(document).on('click', '#closeVeno', function(e) {
     e.preventDefault();
     
-    // 檢查目前是否處於 iframe 內嵌狀態
+    // 若在 iframe 內部，直接讓頂層視窗 reload
     if (window.self !== window.top) {
-        // 策略 1：模擬點擊父視窗（外層網頁）中 VenoBox 的原生關閉按鈕
-        var parentCloseBtn = window.parent.document.querySelector('.vbox-close');
-        if (parentCloseBtn) {
-            parentCloseBtn.click();
-            return;
-        }
-        
-        // 策略 2：如果找不到關閉鈕，直接呼叫父視窗全域的 vb 物件關閉法
-        if (window.parent.vb && typeof window.parent.vb.close === 'function') {
-            window.parent.vb.close();
-            return;
-        }
+        window.top.location.reload();
+        return;
     }
 
-    // 備用防禦：如果這頁不是被當成 iframe，而是單獨開啟時，用來關閉自己內文點開的照片燈箱
+    triggerParentReload();
     if ($('.vbox-close').length > 0) {
         $('.vbox-close').trigger('click');
     }

@@ -1,19 +1,30 @@
-<div class="card my-4">
-    <h3 class="card-header">群組資料</h3>
+<div class="card my-4 shadow-sm">
+    <h2 class="card-header h5">群組資料</h2>
     <div class="card-body">
-        <div class="form-group">
-            <label for="name">名稱</label>
-            {{ Form::text('name',null,['id'=>'name','class' => 'form-control', 'placeholder' => '名稱','required'=>'required']) }}
+        <div class="mb-3">
+            <label for="name" class="form-label fw-bold">名稱 <span class="text-danger">*</span></label>
+            <input type="text" 
+                   name="name" 
+                   id="name" 
+                   value="{{ old('name', $group->name ?? null) }}" 
+                   class="form-control" 
+                   placeholder="名稱" 
+                   required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <div class="form-check">
-                {{ Form::checkbox('disable', '1',null,['id'=>'disable','class'=>'form-check-input']) }}
+                <input type="checkbox" 
+                       name="disable" 
+                       value="1" 
+                       id="disable" 
+                       class="form-check-input" 
+                       {{ old('disable', $group->disable ?? false) ? 'checked' : '' }}>
                 <label class="form-check-label" for="disable">停用</label>
             </div>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定儲存嗎？')">
-                <i class="fas fa-save"></i> 儲存設定
+        <div class="mb-2">
+            <button type="button" class="btn btn-primary btn-sm" onclick="sw_confirm2('確定儲存嗎？','this_form1')">
+                <i class="fas fa-save me-1" aria-hidden="true"></i> 儲存設定
             </button>
         </div>
     </div>

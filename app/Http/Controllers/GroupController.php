@@ -59,7 +59,22 @@ class GroupController extends Controller
             'name'=>'required',
         ]);
         Group::create($request->all());
-        return redirect()->route('groups.index');
+        echo "
+            <script>
+            // 確保頁面加載完成後執行
+            window.onload = function() {
+                // 檢查父頁面是否存在且可以訪問 jQuery
+                if (window.parent && window.parent.$) {
+                    // 關閉 venobox 視窗
+                    if (typeof window.parent.$.venobox !== 'undefined') {
+                        window.parent.$.venobox.close();  // 關閉 venobox 視窗
+                    }
+
+                    // 可選：刷新父頁面，這樣可以讓父頁面顯示最新的內容
+                    window.parent.location.reload();                
+                }
+            };
+            </script>";
     }
 
     /**
@@ -99,7 +114,22 @@ class GroupController extends Controller
         $att['name'] = $request->input('name');
         $att['disable'] = $request->input('disable');
         $group->update($att);
-        return redirect()->route('groups.index');
+        echo "
+            <script>
+            // 確保頁面加載完成後執行
+            window.onload = function() {
+                // 檢查父頁面是否存在且可以訪問 jQuery
+                if (window.parent && window.parent.$) {
+                    // 關閉 venobox 視窗
+                    if (typeof window.parent.$.venobox !== 'undefined') {
+                        window.parent.$.venobox.close();  // 關閉 venobox 視窗
+                    }
+
+                    // 可選：刷新父頁面，這樣可以讓父頁面顯示最新的內容
+                    window.parent.location.reload();                
+                }
+            };
+            </script>";
     }
 
     /**
@@ -158,7 +188,7 @@ class GroupController extends Controller
     }
 
     public function users_groups_store(Request $request)
-    {
+    {        
         $group_id = $request->input('group_id');
         $insert_data = [];
         foreach($request->input('user_id') as $user_id){
