@@ -344,7 +344,7 @@
                             @endif
                             <li><a class="dropdown-item" href="{{ route('wrench.index') }}"><i class="fas fa-wrench" aria-hidden="true"></i> 系統報錯與建議</a></li>
                             @impersonating
-                                <li><a class="dropdown-item" href="{{ route('sims.impersonate_leave') }}" onclick="return confirm('確定返回原本帳號？')"><i class="fas fa-user-ninja" aria-hidden="true"></i> 結束模擬</a></li>
+                                <li><a class="dropdown-item" href="#!" onclick="sw_confirm1('確定返回原本帳號？','{{ route('sims.impersonate_leave') }}')"><i class="fas fa-user-ninja" aria-hidden="true"></i> 結束模擬</a></li>
                             @endImpersonating
                             <li>
                                 <a class="dropdown-item" href="#" onclick="if(sw_confirm2('您確定登出嗎?','logout_form')) document.getElementById('logout-form').submit(); else return false">

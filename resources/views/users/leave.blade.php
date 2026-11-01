@@ -7,7 +7,7 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-11">
-            <h1>
+            <h1 class="h2 mb-3">
                 帳號管理
             </h1>
             <?php
@@ -18,5 +18,4 @@
             @include('users.form')
         </div>
     </div>
-
 @endsection
