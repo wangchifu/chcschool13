@@ -170,7 +170,8 @@ main a {
    -------------------------------------------------------------------------- */
 /* 1. 全站通用預設焦點 (藍色外框) */
 a:focus, button:focus, input:focus, select:focus, textarea:focus,
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible,
+.form-control:focus-visible {
     outline: 3px solid var(--focus-blue) !important;
     outline-offset: -2px !important;
 }
@@ -197,10 +198,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     box-shadow: none !important;
 }
 
-/* 3. 按鈕與特殊元件焦點 */
+/* 3. 按鈕、表格與卡片元件焦點 */
 .btn:focus,
 .btn:focus-visible,
 .table a:focus-visible,
+.table button:focus-visible,
+.card button:focus-visible,
+.card a:focus-visible,
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:focus-visible {
     outline: 3px solid var(--focus-blue) !important;
